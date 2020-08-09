@@ -18,12 +18,14 @@ public class MetnoteConst {
     /**
      * User home directory.
      */
-    public final static String USER_HOME = System.getProperties().getProperty("user.home");
+//    public final static String USER_HOME = System.getProperties().getProperty("user.home");
+
+    public final static String DATA_BASE = "/var/metnote";
 
     /**
      * Temporary directory.
      */
-    public final static String TEMP_DIR = "/tmp/com.metnote";
+    public final static String TEMP_DIR = "/tmp/metnote";
 
     public final static String PROTOCOL_HTTPS = "https://";
 

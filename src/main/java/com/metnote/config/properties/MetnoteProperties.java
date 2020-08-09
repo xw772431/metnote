@@ -49,7 +49,7 @@ public class MetnoteProperties {
     /**
      * Work directory.
      */
-    private String workDir = MetnoteUtils.ensureSuffix(MetnoteConst.USER_HOME, MetnoteConst.FILE_SEPARATOR) + ".metnote" + MetnoteConst.FILE_SEPARATOR;
+    private String workDir = MetnoteUtils.ensureSuffix(MetnoteConst.DATA_BASE, MetnoteConst.FILE_SEPARATOR) + "metnote" + MetnoteConst.FILE_SEPARATOR;
 
     /**
      * Metnote backup directory.(Not recommended to modify this config);

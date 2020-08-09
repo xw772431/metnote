@@ -27,7 +27,7 @@ public interface AdminService {
 
     String APPLICATION_CONFIG_NAME = "application.yaml";
 
-    String LOG_PATH = "logs/spring.log";
+    String LOG_PATH = "logs/application.log";
 
     /**
      * Authenticates username password.
