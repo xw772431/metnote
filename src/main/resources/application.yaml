@@ -45,3 +45,4 @@ logging:
 
 metnote:
   download-timeout: 5m
+  workDir: /var/metnote

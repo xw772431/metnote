@@ -18,9 +18,7 @@ public class MetnoteConst {
     /**
      * User home directory.
      */
-//    public final static String USER_HOME = System.getProperties().getProperty("user.home");
-
-    public final static String DATA_BASE = "/var/metnote";
+    public final static String USER_HOME = System.getProperties().getProperty("user.home");
 
     /**
      * Temporary directory.

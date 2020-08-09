@@ -99,7 +99,7 @@ class FileUtilsTest {
     @Test
     @Disabled("Due to depend on halo.mv.db file")
     void dbFileReadTest() throws IOException {
-        Path dbPath = Paths.get(MetnoteConst.DATA_BASE + "/halo-test/db/halo.mv.db");
+        Path dbPath = Paths.get(MetnoteConst.USER_HOME + "/halo-test/db/halo.mv.db");
 
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(dbPath.toString(), "r")) {
             randomAccessFile.seek(2283640);

@@ -49,17 +49,17 @@ public class MetnoteProperties {
     /**
      * Work directory.
      */
-    private String workDir = MetnoteConst.DATA_BASE;
+    private String workDir = MetnoteUtils.ensureSuffix(MetnoteConst.USER_HOME, MetnoteConst.FILE_SEPARATOR) + "metnote" + MetnoteConst.FILE_SEPARATOR;
 
     /**
      * Metnote backup directory.(Not recommended to modify this config);
      */
-    private String backupDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "backup" + MetnoteConst.FILE_SEPARATOR;
+    private String backupDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "metnote-backup" + MetnoteConst.FILE_SEPARATOR;
 
     /**
      * Metnote data export directory.
      */
-    private String dataExportDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "data-export" + MetnoteConst.FILE_SEPARATOR;
+    private String dataExportDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "metnote-data-export" + MetnoteConst.FILE_SEPARATOR;
 
     /**
      * Upload prefix.
