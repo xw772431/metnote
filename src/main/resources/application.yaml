@@ -13,19 +13,12 @@ spring:
       enabled: always
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
+    # MySQL database configuration.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.98.171.172:3306/metnote?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: xuwei
+    password: xuwei123456
 
-    # H2 database configuration.
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/.halo/db/halo
-    username: admin
-    password: 123456
-
-  h2:
-    console:
-      settings:
-        web-allow-others: false
-      path: /h2-console
-      enabled: false
   jpa:
     hibernate:
       ddl-auto: update
@@ -37,7 +30,7 @@ spring:
     multipart:
       max-file-size: 10240MB
       max-request-size: 10240MB
-      location: /tmp/com.metnote
+      location: /tmp/metnote
 management:
   endpoints:
     web:
@@ -48,7 +41,7 @@ logging:
   level:
     com.metnote: INFO
   file:
-    path: ${user.home}/.halo/logs
+    path: /var/logs/metnote
 
-halo:
+metnote:
   download-timeout: 5m

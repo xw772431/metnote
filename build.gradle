@@ -7,7 +7,7 @@ plugins {
 
 group = "com.metnote"
 version = "1.0.0"
-description = "你所遇见的一切，都值得被记录"
+description = "你遇见过的一切，都值得被记录"
 
 java {
     archivesBaseName = "metnote"
