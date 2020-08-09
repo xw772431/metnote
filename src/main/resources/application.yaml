@@ -41,7 +41,7 @@ logging:
   level:
     com.metnote: INFO
   file:
-    path: /var/logs/metnote
+    path: /var/metnote/logs
 
 metnote:
   download-timeout: 5m
