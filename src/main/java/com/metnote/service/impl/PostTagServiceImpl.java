@@ -7,7 +7,7 @@ import com.metnote.model.entity.PostTag;
 import com.metnote.model.entity.Tag;
 import com.metnote.model.enums.PostStatus;
 import com.metnote.model.projection.TagPostPostCountProjection;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.repository.PostRepository;
 import com.metnote.repository.PostTagRepository;
 import com.metnote.repository.TagRepository;
@@ -92,9 +92,9 @@ public class PostTagServiceImpl extends AbstractCrudService<PostTag, Integer> im
                         fullPath.append(optionService.getBlogBaseUrl());
                     }
 
-                    fullPath.append(HaloConst.URL_SEPARATOR)
+                    fullPath.append(MetnoteConst.URL_SEPARATOR)
                             .append(optionService.getTagsPrefix())
-                            .append(HaloConst.URL_SEPARATOR)
+                            .append(MetnoteConst.URL_SEPARATOR)
                             .append(tag.getSlug())
                             .append(optionService.getPathSuffix());
 

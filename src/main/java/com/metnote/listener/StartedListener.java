@@ -2,7 +2,7 @@ package com.metnote.listener;
 
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.model.properties.PrimaryProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.service.OptionService;
 import com.metnote.service.ThemeService;
 import com.metnote.utils.FileUtils;
@@ -110,7 +110,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
         DatabaseMetaData databaseMetaData = JdbcUtils.getDatabaseMetaData(connection);
 
         // Gets database product name
-        HaloConst.DATABASE_PRODUCT_NAME = databaseMetaData.getDatabaseProductName() + " " + databaseMetaData.getDatabaseProductVersion();
+        MetnoteConst.DATABASE_PRODUCT_NAME = databaseMetaData.getDatabaseProductName() + " " + databaseMetaData.getDatabaseProductVersion();
 
         // Close connection.
         connection.close();

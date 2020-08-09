@@ -3,13 +3,13 @@ package com.metnote.handler.file;
 import com.metnote.exception.FileOperationException;
 import com.metnote.model.enums.AttachmentType;
 import com.metnote.model.properties.QiniuOssProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.UploadResult;
 import com.metnote.service.OptionService;
 import com.metnote.utils.FilenameUtils;
-import com.metnote.utils.HaloUtils;
 import com.metnote.utils.ImageUtils;
 import com.metnote.utils.JsonUtils;
+import com.metnote.utils.MetnoteUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -79,11 +79,11 @@ public class QiniuOssFileHandler implements FileHandler {
         String uploadToken = auth.uploadToken(bucket, null, 60 * 60, putPolicy);
 
         // Create temp path
-        Path tmpPath = Paths.get(HaloUtils.ensureSuffix(HaloConst.TEMP_DIR, HaloConst.FILE_SEPARATOR), bucket);
+        Path tmpPath = Paths.get(MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR), bucket);
 
         StringBuilder basePath = new StringBuilder(protocol)
                 .append(domain)
-                .append(HaloConst.URL_SEPARATOR);
+                .append(MetnoteConst.URL_SEPARATOR);
 
         try {
             String basename = FilenameUtils.getBasename(Objects.requireNonNull(file.getOriginalFilename()));
@@ -92,7 +92,7 @@ public class QiniuOssFileHandler implements FileHandler {
             StringBuilder upFilePath = new StringBuilder();
             if (StringUtils.isNotEmpty(source)) {
                 upFilePath.append(source)
-                        .append(HaloConst.URL_SEPARATOR);
+                        .append(MetnoteConst.URL_SEPARATOR);
             }
             upFilePath.append(basename)
                     .append("_")

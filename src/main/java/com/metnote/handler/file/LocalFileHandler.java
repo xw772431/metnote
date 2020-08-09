@@ -3,12 +3,12 @@ package com.metnote.handler.file;
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.FileOperationException;
 import com.metnote.model.enums.AttachmentType;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.UploadResult;
 import com.metnote.service.OptionService;
 import com.metnote.utils.FilenameUtils;
-import com.metnote.utils.HaloUtils;
 import com.metnote.utils.ImageUtils;
+import com.metnote.utils.MetnoteUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.http.MediaType;
@@ -99,12 +99,12 @@ public class LocalFileHandler implements FileHandler {
         String monthString = month < 10 ? "0" + month : String.valueOf(month);
 
         // Build directory
-        String subDir = UPLOAD_SUB_DIR + year + HaloConst.FILE_SEPARATOR + monthString + HaloConst.FILE_SEPARATOR;
+        String subDir = UPLOAD_SUB_DIR + year + MetnoteConst.FILE_SEPARATOR + monthString + MetnoteConst.FILE_SEPARATOR;
 
         String originalBasename = FilenameUtils.getBasename(Objects.requireNonNull(file.getOriginalFilename()));
 
         // Get basename
-        String basename = originalBasename + '-' + HaloUtils.randomUUIDWithoutDash();
+        String basename = originalBasename + '-' + MetnoteUtils.randomUUIDWithoutDash();
 
         // Get extension
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());

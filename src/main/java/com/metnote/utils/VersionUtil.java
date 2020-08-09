@@ -1,6 +1,6 @@
 package com.metnote.utils;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 
@@ -27,7 +27,7 @@ public class VersionUtil {
     public static int[] getCanonicalVersion(String version) {
         Assert.hasText(version, "Version must not be blank");
 
-        if (Objects.equals(version, HaloConst.UNKNOWN_VERSION)) {
+        if (Objects.equals(version, MetnoteConst.UNKNOWN_VERSION)) {
             log.warn("Unknown version will be converted to {}.{}.{}.{}",
                     Integer.MAX_VALUE,
                     Integer.MAX_VALUE,

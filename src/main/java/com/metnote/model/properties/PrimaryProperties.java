@@ -1,6 +1,6 @@
 package com.metnote.model.properties;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 
 /**
  * Primary properties.
@@ -18,7 +18,7 @@ public enum PrimaryProperties implements PropertyEnum {
     /**
      * current actived theme.
      */
-    THEME("theme", String.class, HaloConst.DEFAULT_THEME_ID),
+    THEME("theme", String.class, MetnoteConst.DEFAULT_THEME_ID),
 
     /**
      * blog birthday

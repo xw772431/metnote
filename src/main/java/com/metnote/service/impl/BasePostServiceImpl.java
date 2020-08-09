@@ -16,8 +16,8 @@ import com.metnote.service.OptionService;
 import com.metnote.service.base.AbstractCrudService;
 import com.metnote.service.base.BasePostService;
 import com.metnote.utils.DateUtils;
-import com.metnote.utils.HaloUtils;
 import com.metnote.utils.MarkdownUtils;
+import com.metnote.utils.MetnoteUtils;
 import com.metnote.utils.ServiceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -261,7 +261,7 @@ public abstract class BasePostServiceImpl<POST extends BasePost> extends Abstrac
         Assert.notNull(post, "Post must not be null");
 
         String originalContent = post.getOriginalContent();
-        originalContent = HaloUtils.cleanHtmlTag(originalContent);
+        originalContent = MetnoteUtils.cleanHtmlTag(originalContent);
 
         post.setWordCount((long) originalContent.length());
 
@@ -463,7 +463,7 @@ public abstract class BasePostServiceImpl<POST extends BasePost> extends Abstrac
     public String generateDescription(String content) {
         Assert.notNull(content, "html content must not be null");
 
-        String text = HaloUtils.cleanHtmlTag(content);
+        String text = MetnoteUtils.cleanHtmlTag(content);
 
         Matcher matcher = summaryPattern.matcher(text);
         text = matcher.replaceAll("");
@@ -518,7 +518,7 @@ public abstract class BasePostServiceImpl<POST extends BasePost> extends Abstrac
     protected String generateSummary(@NonNull String htmlContent) {
         Assert.notNull(htmlContent, "html content must not be null");
 
-        String text = HaloUtils.cleanHtmlTag(htmlContent);
+        String text = MetnoteUtils.cleanHtmlTag(htmlContent);
 
         Matcher matcher = summaryPattern.matcher(text);
         text = matcher.replaceAll("");

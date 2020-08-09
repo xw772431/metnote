@@ -1,6 +1,6 @@
 package com.metnote.utils;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -93,13 +93,13 @@ class FileUtilsTest {
 
     @Test
     void tempFolderTest() {
-        log.debug(HaloConst.TEMP_DIR);
+        log.debug(MetnoteConst.TEMP_DIR);
     }
 
     @Test
     @Disabled("Due to depend on halo.mv.db file")
     void dbFileReadTest() throws IOException {
-        Path dbPath = Paths.get(HaloConst.USER_HOME + "/halo-test/db/halo.mv.db");
+        Path dbPath = Paths.get(MetnoteConst.USER_HOME + "/halo-test/db/halo.mv.db");
 
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(dbPath.toString(), "r")) {
             randomAccessFile.seek(2283640);

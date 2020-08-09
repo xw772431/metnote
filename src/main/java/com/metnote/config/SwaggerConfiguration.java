@@ -3,7 +3,7 @@ package com.metnote.config;
 import com.fasterxml.classmate.TypeResolver;
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.model.entity.User;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.support.UserDetail;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
@@ -131,8 +131,8 @@ public class SwaggerConfiguration {
 
     private List<ApiKey> adminApiKeys() {
         return Arrays.asList(
-                new ApiKey("Token from header", HaloConst.ADMIN_TOKEN_HEADER_NAME, In.HEADER.name()),
-                new ApiKey("Token from query", HaloConst.ADMIN_TOKEN_QUERY_NAME, In.QUERY.name())
+                new ApiKey("Token from header", MetnoteConst.ADMIN_TOKEN_HEADER_NAME, In.HEADER.name()),
+                new ApiKey("Token from query", MetnoteConst.ADMIN_TOKEN_QUERY_NAME, In.QUERY.name())
         );
     }
 
@@ -147,8 +147,8 @@ public class SwaggerConfiguration {
 
     private List<ApiKey> contentApiKeys() {
         return Arrays.asList(
-                new ApiKey("Access key from header", HaloConst.API_ACCESS_KEY_HEADER_NAME, In.HEADER.name()),
-                new ApiKey("Access key from query", HaloConst.API_ACCESS_KEY_QUERY_NAME, In.QUERY.name())
+                new ApiKey("Access key from header", MetnoteConst.API_ACCESS_KEY_HEADER_NAME, In.HEADER.name()),
+                new ApiKey("Access key from query", MetnoteConst.API_ACCESS_KEY_QUERY_NAME, In.QUERY.name())
         );
     }
 
@@ -177,7 +177,7 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("Halo API Documentation")
                 .description("Documentation for Halo API")
-                .version(HaloConst.HALO_VERSION)
+                .version(MetnoteConst.METNOTE_VERSION)
                 .termsOfServiceUrl("https://github.com/halo-dev")
                 .contact(new Contact("halo-dev", "https://github.com/halo-dev/halo/issues", "i#ryanc.cc"))
                 .license("GNU General Public License v3.0")

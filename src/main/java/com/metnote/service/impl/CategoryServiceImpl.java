@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.metnote.model.support.HaloConst.URL_SEPARATOR;
+import static com.metnote.model.support.MetnoteConst.URL_SEPARATOR;
 
 /**
  * CategoryService implementation class.

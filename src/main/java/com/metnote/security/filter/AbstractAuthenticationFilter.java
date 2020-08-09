@@ -8,7 +8,7 @@ import com.metnote.exception.ForbiddenException;
 import com.metnote.exception.NotInstallException;
 import com.metnote.model.enums.Mode;
 import com.metnote.model.properties.PrimaryProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.context.SecurityContextHolder;
 import com.metnote.security.handler.AuthenticationFailureHandler;
 import com.metnote.security.handler.DefaultAuthenticationFailureHandler;
@@ -205,7 +205,7 @@ public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter 
      */
     private boolean isSufficientOneTimeToken(HttpServletRequest request) {
         // Check the param
-        final String oneTimeToken = getTokenFromRequest(request, HaloConst.ONE_TIME_TOKEN_QUERY_NAME, HaloConst.ONE_TIME_TOKEN_HEADER_NAME);
+        final String oneTimeToken = getTokenFromRequest(request, MetnoteConst.ONE_TIME_TOKEN_QUERY_NAME, MetnoteConst.ONE_TIME_TOKEN_HEADER_NAME);
 
         if (StringUtils.isBlank(oneTimeToken)) {
             // If no one-time token is not provided, skip

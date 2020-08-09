@@ -11,7 +11,7 @@ import com.metnote.model.entity.SheetComment;
 import com.metnote.model.entity.SheetMeta;
 import com.metnote.model.enums.LogType;
 import com.metnote.model.enums.PostStatus;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.vo.SheetDetailVO;
 import com.metnote.model.vo.SheetListVO;
 import com.metnote.repository.SheetRepository;
@@ -358,9 +358,9 @@ public class SheetServiceImpl extends BasePostServiceImpl<Sheet> implements Shee
             fullPath.append(optionService.getBlogBaseUrl());
         }
 
-        fullPath.append(HaloConst.URL_SEPARATOR)
+        fullPath.append(MetnoteConst.URL_SEPARATOR)
                 .append(optionService.getSheetPrefix())
-                .append(HaloConst.URL_SEPARATOR)
+                .append(MetnoteConst.URL_SEPARATOR)
                 .append(sheet.getSlug())
                 .append(optionService.getPathSuffix());
 

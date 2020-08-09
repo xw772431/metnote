@@ -1,6 +1,6 @@
 package com.metnote.utils;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -127,7 +127,7 @@ public class Version implements Comparable<Version> {
             return Optional.empty();
         }
         // handle unknown version
-        if (StringUtils.equalsIgnoreCase(version, HaloConst.UNKNOWN_VERSION)) {
+        if (StringUtils.equalsIgnoreCase(version, MetnoteConst.UNKNOWN_VERSION)) {
             return Optional.of(new Version());
         }
         // get matcher for version

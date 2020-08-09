@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * Halo main class.
+ * Metnote main class.
  *
  * @author ryanwang
  * @date 2017-11-14
@@ -20,8 +20,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        // Customize the spring config location
-        System.setProperty("spring.config.additional-location", "file:${user.home}/.halo/,file:${user.home}/halo-dev/");
+//        // Customize the spring config location
+//        System.setProperty("spring.config.additional-location", "file:${user.home}/.metnote/,file:${user.home}/metnote-dev/");
 
         // Run application
         SpringApplication.run(Application.class, args);
@@ -29,7 +29,7 @@ public class Application extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        System.setProperty("spring.config.additional-location", "file:${user.home}/.halo/,file:${user.home}/halo-dev/");
+//        System.setProperty("spring.config.additional-location", "file:${user.home}/.metnote/,file:${user.home}/metnote-dev/");
         return application.sources(Application.class);
     }
 }

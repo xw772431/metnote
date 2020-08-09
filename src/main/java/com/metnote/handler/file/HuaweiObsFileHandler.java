@@ -3,7 +3,7 @@ package com.metnote.handler.file;
 import com.metnote.exception.FileOperationException;
 import com.metnote.model.enums.AttachmentType;
 import com.metnote.model.properties.HuaweiObsProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.UploadResult;
 import com.metnote.service.OptionService;
 import com.metnote.utils.FilenameUtils;
@@ -60,12 +60,12 @@ public class HuaweiObsFileHandler implements FileHandler {
 
         if (StringUtils.isNotEmpty(domain)) {
             basePath.append(domain)
-                    .append(HaloConst.URL_SEPARATOR);
+                    .append(MetnoteConst.URL_SEPARATOR);
         } else {
             basePath.append(bucketName)
                     .append(".")
                     .append(endPoint)
-                    .append(HaloConst.URL_SEPARATOR);
+                    .append(MetnoteConst.URL_SEPARATOR);
         }
 
         try {
@@ -76,7 +76,7 @@ public class HuaweiObsFileHandler implements FileHandler {
 
             if (StringUtils.isNotEmpty(source)) {
                 upFilePath.append(source)
-                        .append(HaloConst.URL_SEPARATOR);
+                        .append(MetnoteConst.URL_SEPARATOR);
             }
 
             upFilePath.append(basename)

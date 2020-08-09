@@ -1,6 +1,6 @@
 package com.metnote.model.properties;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 
 /**
  * Qiniu oss properties.
@@ -34,7 +34,7 @@ public enum QiniuOssProperties implements PropertyEnum {
     /**
      * Qiniu oss domain protocol.
      */
-    OSS_PROTOCOL("oss_qiniu_domain_protocol", String.class, HaloConst.PROTOCOL_HTTPS),
+    OSS_PROTOCOL("oss_qiniu_domain_protocol", String.class, MetnoteConst.PROTOCOL_HTTPS),
 
     /**
      * Qiniu oss domain.

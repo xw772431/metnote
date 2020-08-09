@@ -1,7 +1,7 @@
 package com.metnote.core.freemarker.tag;
 
 import com.metnote.model.entity.Tag;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.service.PostTagService;
 import com.metnote.service.TagService;
 import freemarker.core.Environment;
@@ -45,8 +45,8 @@ public class TagTagDirective implements TemplateDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         final DefaultObjectWrapperBuilder builder = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 
-        if (params.containsKey(HaloConst.METHOD_KEY)) {
-            String method = params.get(HaloConst.METHOD_KEY).toString();
+        if (params.containsKey(MetnoteConst.METHOD_KEY)) {
+            String method = params.get(MetnoteConst.METHOD_KEY).toString();
             switch (method) {
                 case "list":
                     env.setVariable("tags", builder.build().wrap(postTagService.listTagWithCountDtos(Sort.by(DESC, "createTime"))));

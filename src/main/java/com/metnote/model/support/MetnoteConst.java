@@ -13,7 +13,7 @@ import java.util.Optional;
  * @author ryanwang
  * @date 2017/12/29
  */
-public class HaloConst {
+public class MetnoteConst {
 
     /**
      * User home directory.
@@ -32,14 +32,14 @@ public class HaloConst {
     public final static String URL_SEPARATOR = "/";
 
     /**
-     * Halo backup prefix.
+     * Metnote backup prefix.
      */
-    public final static String HALO_BACKUP_PREFIX = "halo-backup-";
+    public final static String METNOTE_BACKUP_PREFIX = "metnote-backup-";
 
     /**
-     * Halo data export prefix.
+     * Metnote data export prefix.
      */
-    public final static String HALO_DATA_EXPORT_PREFIX = "halo-data-export-";
+    public final static String METNOTE_DATA_EXPORT_PREFIX = "metnote-data-export-";
 
     /**
      * Static pages pack prefix.
@@ -105,15 +105,15 @@ public class HaloConst {
      */
     public static final String YOUTUBE_VIDEO_REG_PATTERN = "\\[youtube:(\\w+)\\,(\\d+)\\,(\\d+)\\]";
     /**
-     * Github Api url for halo-admin release.
+     * Github Api url for metnote-admin release.
      */
-    public final static String HALO_ADMIN_RELEASES_LATEST = "https://api.github.com/repos/halo-dev/halo-admin/releases/latest";
+    public final static String METNOTE_ADMIN_RELEASES_LATEST = "https://api.github.com/repos/metnote-dev/metnote-admin/releases/latest";
     /**
-     * Halo admin version regex.
+     * Metnote admin version regex.
      */
-    public final static String HALO_ADMIN_VERSION_REGEX = "halo-admin-\\d+\\.\\d+(\\.\\d+)?(-\\S*)?\\.zip";
-    public final static String HALO_ADMIN_RELATIVE_PATH = "templates/admin/";
-    public final static String HALO_ADMIN_RELATIVE_BACKUP_PATH = "templates/admin-backup/";
+    public final static String METNOTE_ADMIN_VERSION_REGEX = "metnote-admin-\\d+\\.\\d+(\\.\\d+)?(-\\S*)?\\.zip";
+    public final static String METNOTE_ADMIN_RELATIVE_PATH = "templates/admin/";
+    public final static String METNOTE_ADMIN_RELATIVE_BACKUP_PATH = "templates/admin-backup/";
     /**
      * Content token header name.
      */
@@ -139,7 +139,7 @@ public class HaloConst {
     /**
      * Version constant. (Available in production environment)
      */
-    public static final String HALO_VERSION;
+    public static final String METNOTE_VERSION;
 
     /**
      * Unknown version: unknown
@@ -157,6 +157,6 @@ public class HaloConst {
 
     static {
         // Set version
-        HALO_VERSION = Optional.ofNullable(HaloConst.class.getPackage().getImplementationVersion()).orElse(UNKNOWN_VERSION);
+        METNOTE_VERSION = Optional.ofNullable(MetnoteConst.class.getPackage().getImplementationVersion()).orElse(UNKNOWN_VERSION);
     }
 }

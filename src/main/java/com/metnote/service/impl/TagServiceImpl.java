@@ -4,7 +4,7 @@ import com.metnote.exception.AlreadyExistsException;
 import com.metnote.exception.NotFoundException;
 import com.metnote.model.dto.TagDTO;
 import com.metnote.model.entity.Tag;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.repository.TagRepository;
 import com.metnote.service.OptionService;
 import com.metnote.service.TagService;
@@ -85,9 +85,9 @@ public class TagServiceImpl extends AbstractCrudService<Tag, Integer> implements
             fullPath.append(optionService.getBlogBaseUrl());
         }
 
-        fullPath.append(HaloConst.URL_SEPARATOR)
+        fullPath.append(MetnoteConst.URL_SEPARATOR)
                 .append(optionService.getTagsPrefix())
-                .append(HaloConst.URL_SEPARATOR)
+                .append(MetnoteConst.URL_SEPARATOR)
                 .append(tag.getSlug())
                 .append(optionService.getPathSuffix());
 

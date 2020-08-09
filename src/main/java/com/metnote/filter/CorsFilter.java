@@ -1,6 +1,6 @@
 package com.metnote.filter;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -26,7 +26,7 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE + 10)
 public class CorsFilter extends GenericFilterBean {
 
-    private final static String ALLOW_HEADERS = StringUtils.joinWith(",", HttpHeaders.CONTENT_TYPE, HaloConst.ADMIN_TOKEN_HEADER_NAME, HaloConst.API_ACCESS_KEY_HEADER_NAME);
+    private final static String ALLOW_HEADERS = StringUtils.joinWith(",", HttpHeaders.CONTENT_TYPE, MetnoteConst.ADMIN_TOKEN_HEADER_NAME, MetnoteConst.API_ACCESS_KEY_HEADER_NAME);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

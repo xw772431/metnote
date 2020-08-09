@@ -1,6 +1,6 @@
 package com.metnote.utils;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.lang.NonNull;
@@ -136,7 +136,7 @@ class VersionTest {
 
     @Test
     void unknownVersionTest() {
-        Optional<Version> unknownVersionOpt = Version.resolve(HaloConst.UNKNOWN_VERSION);
+        Optional<Version> unknownVersionOpt = Version.resolve(MetnoteConst.UNKNOWN_VERSION);
         assertTrue(unknownVersionOpt.isPresent());
         assertEquals(new Version(0, 0, 0), unknownVersionOpt.get());
     }
@@ -173,7 +173,7 @@ class VersionTest {
         assertTrue(leftVersion.compareTo(rightVersion) < 0);
 
         // compare with unkown version
-        assertTrue(leftVersion.compareTo(getVersion(HaloConst.UNKNOWN_VERSION)) > 0);
+        assertTrue(leftVersion.compareTo(getVersion(MetnoteConst.UNKNOWN_VERSION)) > 0);
     }
 
     @NonNull

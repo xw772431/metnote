@@ -36,7 +36,7 @@ import com.metnote.model.entity.SheetComment;
 import com.metnote.model.entity.SheetMeta;
 import com.metnote.model.entity.Tag;
 import com.metnote.model.entity.ThemeSetting;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.service.OneTimeTokenService;
 import com.metnote.service.AttachmentService;
 import com.metnote.service.BackupService;
@@ -62,8 +62,8 @@ import com.metnote.service.ThemeSettingService;
 import com.metnote.service.UserService;
 import com.metnote.utils.DateTimeUtils;
 import com.metnote.utils.FileUtils;
-import com.metnote.utils.HaloUtils;
 import com.metnote.utils.JsonUtils;
+import com.metnote.utils.MetnoteUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
@@ -219,7 +219,7 @@ public class BackupServiceImpl implements BackupService {
         // Zip work directory to temporary file
         try {
             // Create zip path for halo zip
-            String haloZipFileName = HaloConst.HALO_BACKUP_PREFIX +
+            String haloZipFileName = MetnoteConst.METNOTE_BACKUP_PREFIX +
                     DateTimeUtils.format(LocalDateTime.now(), DateTimeUtils.HORIZONTAL_LINE_DATETIME_FORMATTER) +
                     IdUtil.simpleUUID().hashCode() + ".zip";
             // Create halo zip file
@@ -246,7 +246,7 @@ public class BackupServiceImpl implements BackupService {
         // Build backup dto
         try (Stream<Path> subPathStream = Files.list(backupParentPath)) {
             return subPathStream
-                    .filter(backupPath -> StringUtils.startsWithIgnoreCase(backupPath.getFileName().toString(), HaloConst.HALO_BACKUP_PREFIX))
+                    .filter(backupPath -> StringUtils.startsWithIgnoreCase(backupPath.getFileName().toString(), MetnoteConst.METNOTE_BACKUP_PREFIX))
                     .map(backupPath -> buildBackupDto(BACKUP_RESOURCE_BASE_URI, backupPath))
                     .sorted(Comparator.comparingLong(BackupDTO::getUpdateTime).reversed())
                     .collect(Collectors.toList());
@@ -314,7 +314,7 @@ public class BackupServiceImpl implements BackupService {
     @Override
     public BackupDTO exportData() {
         Map<String, Object> data = new HashMap<>();
-        data.put("version", HaloConst.HALO_VERSION);
+        data.put("version", MetnoteConst.METNOTE_VERSION);
         data.put("export_date", DateUtil.now());
         data.put("attachments", attachmentService.listAll());
         data.put("categories", categoryService.listAll());
@@ -339,7 +339,7 @@ public class BackupServiceImpl implements BackupService {
         data.put("user", userService.listAll());
 
         try {
-            String haloDataFileName = HaloConst.HALO_DATA_EXPORT_PREFIX +
+            String haloDataFileName = MetnoteConst.METNOTE_DATA_EXPORT_PREFIX +
                     DateTimeUtils.format(LocalDateTime.now(), DateTimeUtils.HORIZONTAL_LINE_DATETIME_FORMATTER) +
                     IdUtil.simpleUUID().hashCode() + ".json";
 
@@ -364,7 +364,7 @@ public class BackupServiceImpl implements BackupService {
 
         try (Stream<Path> subPathStream = Files.list(exportedDataParentPath)) {
             return subPathStream
-                    .filter(backupPath -> StringUtils.startsWithIgnoreCase(backupPath.getFileName().toString(), HaloConst.HALO_DATA_EXPORT_PREFIX))
+                    .filter(backupPath -> StringUtils.startsWithIgnoreCase(backupPath.getFileName().toString(), MetnoteConst.METNOTE_DATA_EXPORT_PREFIX))
                     .map(backupPath -> buildBackupDto(DATA_EXPORT_BASE_URI, backupPath))
                     .sorted(Comparator.comparingLong(BackupDTO::getUpdateTime).reversed())
                     .collect(Collectors.toList());
@@ -503,15 +503,15 @@ public class BackupServiceImpl implements BackupService {
         Assert.hasText(filename, "File name must not be blank");
 
         // Composite http url
-        String backupUri = basePath + HaloUtils.URL_SEPARATOR + filename;
+        String backupUri = basePath + MetnoteUtils.URL_SEPARATOR + filename;
 
         // Get a one-time token
         String oneTimeToken = oneTimeTokenService.create(backupUri);
 
         // Build full url
-        return HaloUtils.compositeHttpUrl(optionService.getBlogBaseUrl(), backupUri)
+        return MetnoteUtils.compositeHttpUrl(optionService.getBlogBaseUrl(), backupUri)
                 + "?"
-                + HaloConst.ONE_TIME_TOKEN_QUERY_NAME
+                + MetnoteConst.ONE_TIME_TOKEN_QUERY_NAME
                 + "=" + oneTimeToken;
     }
 

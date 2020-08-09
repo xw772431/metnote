@@ -2,7 +2,7 @@ package com.metnote.core.freemarker.tag;
 
 import com.metnote.model.entity.Post;
 import com.metnote.model.enums.PostStatus;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.service.PostCategoryService;
 import com.metnote.service.PostService;
 import com.metnote.service.PostTagService;
@@ -47,8 +47,8 @@ public class PostTagDirective implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         final DefaultObjectWrapperBuilder builder = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-        if (params.containsKey(HaloConst.METHOD_KEY)) {
-            String method = params.get(HaloConst.METHOD_KEY).toString();
+        if (params.containsKey(MetnoteConst.METHOD_KEY)) {
+            String method = params.get(MetnoteConst.METHOD_KEY).toString();
             switch (method) {
                 case "latest":
                     int top = Integer.parseInt(params.get("top").toString());

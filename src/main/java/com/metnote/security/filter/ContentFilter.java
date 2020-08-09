@@ -5,7 +5,7 @@ import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.security.handler.ContentAuthenticationFailureHandler;
 import com.metnote.security.service.OneTimeTokenService;
 import com.metnote.service.OptionService;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +33,7 @@ public class ContentFilter extends AbstractAuthenticationFilter {
 
         addUrlPatterns("/**");
 
-        String adminPattern = HaloUtils.ensureBoth(metnoteProperties.getAdminPath(), "/") + "**";
+        String adminPattern = MetnoteUtils.ensureBoth(metnoteProperties.getAdminPath(), "/") + "**";
         addExcludeUrlPatterns(
                 adminPattern,
                 "/api/**",

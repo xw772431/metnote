@@ -7,7 +7,7 @@ import com.metnote.exception.AuthenticationException;
 import com.metnote.exception.ForbiddenException;
 import com.metnote.model.properties.ApiProperties;
 import com.metnote.model.properties.CommentProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.handler.DefaultAuthenticationFailureHandler;
 import com.metnote.security.service.OneTimeTokenService;
 import com.metnote.service.OptionService;
@@ -114,6 +114,6 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationFilter {
 
     @Override
     protected String getTokenFromRequest(@NonNull HttpServletRequest request) {
-        return getTokenFromRequest(request, HaloConst.API_ACCESS_KEY_QUERY_NAME, HaloConst.API_ACCESS_KEY_HEADER_NAME);
+        return getTokenFromRequest(request, MetnoteConst.API_ACCESS_KEY_QUERY_NAME, MetnoteConst.API_ACCESS_KEY_HEADER_NAME);
     }
 }

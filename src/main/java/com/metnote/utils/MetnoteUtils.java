@@ -1,7 +1,7 @@
 package com.metnote.utils;
 
 import cn.hutool.core.util.URLUtil;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -20,7 +20,7 @@ import java.util.UUID;
  * @date 2017-12-22
  */
 @Slf4j
-public class HaloUtils {
+public class MetnoteUtils {
 
     public static final String URL_SEPARATOR = "/";
     private static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
@@ -139,7 +139,7 @@ public class HaloUtils {
     public static String changeFileSeparatorToUrlSeparator(@NonNull String pathname) {
         Assert.hasText(pathname, "Path name must not be blank");
 
-        return pathname.replace(HaloConst.FILE_SEPARATOR, "/");
+        return pathname.replace(MetnoteConst.FILE_SEPARATOR, "/");
     }
 
     /**
@@ -242,7 +242,7 @@ public class HaloUtils {
     public static String normalizeUrl(@NonNull String originalUrl) {
         Assert.hasText(originalUrl, "Original Url must not be blank");
 
-        if (StringUtils.startsWithAny(originalUrl, URL_SEPARATOR, HaloConst.PROTOCOL_HTTPS, HaloConst.PROTOCOL_HTTP)
+        if (StringUtils.startsWithAny(originalUrl, URL_SEPARATOR, MetnoteConst.PROTOCOL_HTTPS, MetnoteConst.PROTOCOL_HTTP)
                 && !StringUtils.startsWith(originalUrl, "//")) {
             return originalUrl;
         }

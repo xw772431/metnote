@@ -12,7 +12,7 @@ import com.metnote.repository.AttachmentRepository;
 import com.metnote.service.AttachmentService;
 import com.metnote.service.OptionService;
 import com.metnote.service.base.AbstractCrudService;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -117,7 +117,7 @@ public class AttachmentServiceImpl extends AbstractCrudService<Attachment, Integ
         Attachment attachment = new Attachment();
         attachment.setName(uploadResult.getFilename());
         // Convert separator
-        attachment.setPath(HaloUtils.changeFileSeparatorToUrlSeparator(uploadResult.getFilePath()));
+        attachment.setPath(MetnoteUtils.changeFileSeparatorToUrlSeparator(uploadResult.getFilePath()));
         attachment.setFileKey(uploadResult.getKey());
         attachment.setThumbPath(uploadResult.getThumbPath());
         attachment.setMediaType(uploadResult.getMediaType().toString());

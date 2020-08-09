@@ -5,7 +5,7 @@ import com.metnote.exception.FileOperationException;
 import com.metnote.exception.ServiceException;
 import com.metnote.model.enums.AttachmentType;
 import com.metnote.model.properties.SmmsProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.UploadResult;
 import com.metnote.service.OptionService;
 import com.metnote.utils.FilenameUtils;
@@ -189,7 +189,7 @@ public class SmmsFileHandler implements FileHandler {
      * Set headers.
      */
     private void setHeaders() {
-        headers.set(HttpHeaders.USER_AGENT, "Halo/" + HaloConst.HALO_VERSION);
+        headers.set(HttpHeaders.USER_AGENT, "Halo/" + MetnoteConst.METNOTE_VERSION);
         headers.set(HttpHeaders.AUTHORIZATION, optionService.getByPropertyOfNonNull(SmmsProperties.SMMS_API_SECRET_TOKEN).toString());
     }
 

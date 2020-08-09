@@ -6,7 +6,7 @@ import com.metnote.event.theme.ThemeUpdatedEvent;
 import com.metnote.event.user.UserUpdatedEvent;
 import com.metnote.model.properties.BlogProperties;
 import com.metnote.model.properties.SeoProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.service.OptionService;
 import com.metnote.service.ThemeService;
 import com.metnote.service.ThemeSettingService;
@@ -105,7 +105,7 @@ public class FreemarkerConfigAwareListener {
 
         configuration.setSharedVariable("options", optionService.listOptions());
         configuration.setSharedVariable("context", context);
-        configuration.setSharedVariable("version", HaloConst.HALO_VERSION);
+        configuration.setSharedVariable("version", MetnoteConst.METNOTE_VERSION);
 
         configuration.setSharedVariable("globalAbsolutePathEnabled", optionService.isEnabledAbsolutePath());
         configuration.setSharedVariable("blog_title", optionService.getBlogTitle());

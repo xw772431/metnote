@@ -1,6 +1,6 @@
 package com.metnote.model.properties;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 
 /**
  * Ali yun oss properties.
@@ -14,7 +14,7 @@ public enum AliOssProperties implements PropertyEnum {
     /**
      * Aliyun oss domain protocol
      */
-    OSS_PROTOCOL("oss_ali_domain_protocol", String.class, HaloConst.PROTOCOL_HTTPS),
+    OSS_PROTOCOL("oss_ali_domain_protocol", String.class, MetnoteConst.PROTOCOL_HTTPS),
 
     /**
      * Aliyun oss domain

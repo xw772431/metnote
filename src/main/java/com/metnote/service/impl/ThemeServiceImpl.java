@@ -17,7 +17,7 @@ import com.metnote.handler.theme.config.ThemeConfigResolver;
 import com.metnote.handler.theme.config.support.Group;
 import com.metnote.handler.theme.config.support.ThemeProperty;
 import com.metnote.model.properties.PrimaryProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.ThemeFile;
 import com.metnote.service.OptionService;
 import com.metnote.service.ThemeService;
@@ -27,7 +27,7 @@ import com.metnote.utils.FileUtils;
 import com.metnote.utils.FilenameUtils;
 import com.metnote.utils.GitUtils;
 import com.metnote.utils.GithubUtils;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import com.metnote.utils.VersionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -182,7 +182,7 @@ public class ThemeServiceImpl implements ThemeService {
                             // Remove prefix
                             String customTemplate = StringUtils.removeStartIgnoreCase(path.getFileName().toString(), prefix);
                             // Remove suffix
-                            return StringUtils.removeEndIgnoreCase(customTemplate, HaloConst.SUFFIX_FTL);
+                            return StringUtils.removeEndIgnoreCase(customTemplate, MetnoteConst.SUFFIX_FTL);
                         })
                         .distinct()
                         .collect(Collectors.toList());
@@ -336,7 +336,7 @@ public class ThemeServiceImpl implements ThemeService {
     public String render(String pageName) {
         return fetchActivatedTheme()
                 .map(themeProperty -> String.format(RENDER_TEMPLATE, themeProperty.getFolderName(), pageName))
-                .orElse(HaloConst.DEFAULT_ERROR_PATH);
+                .orElse(MetnoteConst.DEFAULT_ERROR_PATH);
     }
 
     @Override
@@ -353,7 +353,7 @@ public class ThemeServiceImpl implements ThemeService {
         if (activatedThemeId == null) {
             synchronized (this) {
                 if (activatedThemeId == null) {
-                    activatedThemeId = optionService.getByPropertyOrDefault(PrimaryProperties.THEME, String.class, HaloConst.DEFAULT_THEME_ID);
+                    activatedThemeId = optionService.getByPropertyOrDefault(PrimaryProperties.THEME, String.class, MetnoteConst.DEFAULT_THEME_ID);
                 }
             }
         }
@@ -476,7 +476,7 @@ public class ThemeServiceImpl implements ThemeService {
         }
 
         // Not support current halo version.
-        if (StringUtils.isNotEmpty(tmpThemeProperty.getRequire()) && !VersionUtil.compareVersion(HaloConst.HALO_VERSION, tmpThemeProperty.getRequire())) {
+        if (StringUtils.isNotEmpty(tmpThemeProperty.getRequire()) && !VersionUtil.compareVersion(MetnoteConst.METNOTE_VERSION, tmpThemeProperty.getRequire())) {
             throw new ThemeNotSupportException("当前主题仅支持 Halo " + tmpThemeProperty.getRequire() + " 以上的版本");
         }
 
@@ -504,7 +504,7 @@ public class ThemeServiceImpl implements ThemeService {
             // Create temp path
             tmpPath = FileUtils.createTempDirectory();
             // Create temp path
-            Path themeTmpPath = tmpPath.resolve(HaloUtils.randomUUIDWithoutDash());
+            Path themeTmpPath = tmpPath.resolve(MetnoteUtils.randomUUIDWithoutDash());
 
             if (StringUtils.endsWithIgnoreCase(uri, ".zip")) {
                 downloadZipAndUnzip(uri, themeTmpPath);
@@ -532,7 +532,7 @@ public class ThemeServiceImpl implements ThemeService {
             // Create temp path
             tmpPath = FileUtils.createTempDirectory();
             // Create temp path
-            Path themeTmpPath = tmpPath.resolve(HaloUtils.randomUUIDWithoutDash());
+            Path themeTmpPath = tmpPath.resolve(MetnoteUtils.randomUUIDWithoutDash());
 
             String repoUrl = StringUtils.appendIfMissingIgnoreCase(uri, ".git", ".git");
             GitUtils.cloneFromGit(repoUrl, themeTmpPath, branchName);
@@ -554,7 +554,7 @@ public class ThemeServiceImpl implements ThemeService {
         try {
             tmpPath = FileUtils.createTempDirectory();
 
-            Path themeTmpPath = tmpPath.resolve(HaloUtils.randomUUIDWithoutDash());
+            Path themeTmpPath = tmpPath.resolve(MetnoteUtils.randomUUIDWithoutDash());
 
             Map<String, Object> releaseInfo = GithubUtils.getRelease(uri, tagName);
 
@@ -582,7 +582,7 @@ public class ThemeServiceImpl implements ThemeService {
         try {
             tmpPath = FileUtils.createTempDirectory();
 
-            Path themeTmpPath = tmpPath.resolve(HaloUtils.randomUUIDWithoutDash());
+            Path themeTmpPath = tmpPath.resolve(MetnoteUtils.randomUUIDWithoutDash());
 
             Map<String, Object> releaseInfo = GithubUtils.getLatestRelease(uri);
 
@@ -706,7 +706,7 @@ public class ThemeServiceImpl implements ThemeService {
             }
 
             // Not support current halo version.
-            if (StringUtils.isNotEmpty(prepareThemeProperty.getRequire()) && !VersionUtil.compareVersion(HaloConst.HALO_VERSION, prepareThemeProperty.getRequire())) {
+            if (StringUtils.isNotEmpty(prepareThemeProperty.getRequire()) && !VersionUtil.compareVersion(MetnoteConst.METNOTE_VERSION, prepareThemeProperty.getRequire())) {
                 throw new ThemeNotSupportException("新版本主题仅支持 Halo " + prepareThemeProperty.getRequire() + " 以上的版本");
             }
 
@@ -800,7 +800,7 @@ public class ThemeServiceImpl implements ThemeService {
             ThemeProperty updatedThemeProperty = getProperty(Paths.get(themeProperty.getThemePath()));
 
             // Not support current halo version.
-            if (StringUtils.isNotEmpty(updatedThemeProperty.getRequire()) && !VersionUtil.compareVersion(HaloConst.HALO_VERSION, updatedThemeProperty.getRequire())) {
+            if (StringUtils.isNotEmpty(updatedThemeProperty.getRequire()) && !VersionUtil.compareVersion(MetnoteConst.METNOTE_VERSION, updatedThemeProperty.getRequire())) {
                 // reset theme version
                 git.reset()
                         .setMode(ResetCommand.ResetType.HARD)

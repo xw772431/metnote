@@ -1,8 +1,8 @@
 package com.metnote.config.properties;
 
 import com.metnote.model.enums.Mode;
-import com.metnote.model.support.HaloConst;
-import com.metnote.utils.HaloUtils;
+import com.metnote.model.support.MetnoteConst;
+import com.metnote.utils.MetnoteUtils;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 /**
- * Halo configuration properties.
+ * Metnote configuration properties.
  *
  * @author johnniang
  * @author ryanwang
@@ -37,7 +37,7 @@ public class MetnoteProperties {
     private boolean authEnabled = true;
 
     /**
-     * Halo startup mode.
+     * Metnote startup mode.
      */
     private Mode mode = Mode.PRODUCTION;
 
@@ -49,17 +49,17 @@ public class MetnoteProperties {
     /**
      * Work directory.
      */
-    private String workDir = HaloUtils.ensureSuffix(HaloConst.USER_HOME, HaloConst.FILE_SEPARATOR) + ".halo" + HaloConst.FILE_SEPARATOR;
+    private String workDir = MetnoteUtils.ensureSuffix(MetnoteConst.USER_HOME, MetnoteConst.FILE_SEPARATOR) + ".metnote" + MetnoteConst.FILE_SEPARATOR;
 
     /**
-     * Halo backup directory.(Not recommended to modify this config);
+     * Metnote backup directory.(Not recommended to modify this config);
      */
-    private String backupDir = HaloUtils.ensureSuffix(HaloConst.TEMP_DIR, HaloConst.FILE_SEPARATOR) + "halo-backup" + HaloConst.FILE_SEPARATOR;
+    private String backupDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "metnote-backup" + MetnoteConst.FILE_SEPARATOR;
 
     /**
-     * Halo data export directory.
+     * Metnote data export directory.
      */
-    private String dataExportDir = HaloUtils.ensureSuffix(HaloConst.TEMP_DIR, HaloConst.FILE_SEPARATOR) + "halo-data-export" + HaloConst.FILE_SEPARATOR;
+    private String dataExportDir = MetnoteUtils.ensureSuffix(MetnoteConst.TEMP_DIR, MetnoteConst.FILE_SEPARATOR) + "metnote-data-export" + MetnoteConst.FILE_SEPARATOR;
 
     /**
      * Upload prefix.

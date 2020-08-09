@@ -5,7 +5,7 @@ import com.metnote.cache.AbstractStringCacheStore;
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.AuthenticationException;
 import com.metnote.model.entity.User;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.authentication.AuthenticationImpl;
 import com.metnote.security.context.SecurityContextHolder;
 import com.metnote.security.context.SecurityContextImpl;
@@ -116,7 +116,7 @@ public class AdminAuthenticationFilter extends AbstractAuthenticationFilter {
 
     @Override
     protected String getTokenFromRequest(@NonNull HttpServletRequest request) {
-        return getTokenFromRequest(request, HaloConst.ADMIN_TOKEN_QUERY_NAME, HaloConst.ADMIN_TOKEN_HEADER_NAME);
+        return getTokenFromRequest(request, MetnoteConst.ADMIN_TOKEN_QUERY_NAME, MetnoteConst.ADMIN_TOKEN_HEADER_NAME);
     }
 
 }

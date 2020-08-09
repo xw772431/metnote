@@ -6,7 +6,7 @@ import com.metnote.model.entity.Sheet;
 import com.metnote.model.entity.SheetMeta;
 import com.metnote.model.enums.PostEditorType;
 import com.metnote.model.enums.PostStatus;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.vo.SheetDetailVO;
 import com.metnote.service.OptionService;
 import com.metnote.service.SheetMetaService;
@@ -102,7 +102,7 @@ public class SheetModel {
         model.addAttribute("is_sheet", true);
         model.addAttribute("metas", sheetMetaService.convertToMap(metas));
 
-        if (themeService.templateExists(ThemeService.CUSTOM_SHEET_PREFIX + sheet.getTemplate() + HaloConst.SUFFIX_FTL)) {
+        if (themeService.templateExists(ThemeService.CUSTOM_SHEET_PREFIX + sheet.getTemplate() + MetnoteConst.SUFFIX_FTL)) {
             return themeService.render(ThemeService.CUSTOM_SHEET_PREFIX + sheet.getTemplate());
         }
         return themeService.render("sheet");

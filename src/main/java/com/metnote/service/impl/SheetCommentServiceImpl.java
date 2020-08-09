@@ -5,7 +5,7 @@ import com.metnote.exception.NotFoundException;
 import com.metnote.model.dto.post.BasePostMinimalDTO;
 import com.metnote.model.entity.Sheet;
 import com.metnote.model.entity.SheetComment;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.vo.SheetCommentWithSheetVO;
 import com.metnote.repository.SheetCommentRepository;
 import com.metnote.repository.SheetRepository;
@@ -98,9 +98,9 @@ public class SheetCommentServiceImpl extends BaseCommentServiceImpl<SheetComment
             fullPath.append(optionService.getBlogBaseUrl());
         }
 
-        fullPath.append(HaloConst.URL_SEPARATOR)
+        fullPath.append(MetnoteConst.URL_SEPARATOR)
                 .append(optionService.getSheetPrefix())
-                .append(HaloConst.URL_SEPARATOR)
+                .append(MetnoteConst.URL_SEPARATOR)
                 .append(basePostMinimalDTO.getSlug())
                 .append(optionService.getPathSuffix());
 

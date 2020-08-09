@@ -3,7 +3,7 @@ package com.metnote.controller.core;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.metnote.exception.AbstractHaloException;
 import com.metnote.exception.NotFoundException;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.service.OptionService;
 import com.metnote.service.ThemeService;
 import com.metnote.utils.FilenameUtils;
@@ -133,7 +133,7 @@ public class CommonController extends AbstractErrorController {
     }
 
     private String defaultErrorHandler() {
-        return HaloConst.DEFAULT_ERROR_PATH;
+        return MetnoteConst.DEFAULT_ERROR_PATH;
     }
 
     private String getActualTemplatePath(@NonNull String template) {

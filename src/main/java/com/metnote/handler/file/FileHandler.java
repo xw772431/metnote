@@ -2,7 +2,7 @@ package com.metnote.handler.file;
 
 import com.metnote.exception.FileOperationException;
 import com.metnote.model.enums.AttachmentType;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.support.UploadResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
@@ -51,7 +51,7 @@ public interface FileHandler {
     static String normalizeDirectory(@NonNull String dir) {
         Assert.hasText(dir, "Directory full name must not be blank");
 
-        return StringUtils.appendIfMissing(dir, HaloConst.FILE_SEPARATOR);
+        return StringUtils.appendIfMissing(dir, MetnoteConst.FILE_SEPARATOR);
     }
 
     /**

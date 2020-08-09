@@ -1,6 +1,6 @@
 package com.metnote.model.properties;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 
 /**
  * Huawei obs properties.
@@ -13,7 +13,7 @@ public enum HuaweiObsProperties implements PropertyEnum {
     /**
      * Huawei obs domain protocol
      */
-    OSS_PROTOCOL("obs_huawei_domain_protocol", String.class, HaloConst.PROTOCOL_HTTPS),
+    OSS_PROTOCOL("obs_huawei_domain_protocol", String.class, MetnoteConst.PROTOCOL_HTTPS),
 
     /**
      * Huawei obs domain

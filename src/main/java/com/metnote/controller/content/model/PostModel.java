@@ -8,7 +8,7 @@ import com.metnote.model.entity.PostMeta;
 import com.metnote.model.entity.Tag;
 import com.metnote.model.enums.PostEditorType;
 import com.metnote.model.enums.PostStatus;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.vo.ArchiveYearVO;
 import com.metnote.model.vo.PostListVO;
 import com.metnote.service.CategoryService;
@@ -130,7 +130,7 @@ public class PostModel {
         model.addAttribute("metas", postMetaService.convertToMap(metas));
 
         if (themeService.templateExists(
-                ThemeService.CUSTOM_POST_PREFIX + post.getTemplate() + HaloConst.SUFFIX_FTL)) {
+                ThemeService.CUSTOM_POST_PREFIX + post.getTemplate() + MetnoteConst.SUFFIX_FTL)) {
             return themeService.render(ThemeService.CUSTOM_POST_PREFIX + post.getTemplate());
         }
 

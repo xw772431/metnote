@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.core.PageJacksonSerializer;
 import com.metnote.factory.StringToEnumConverterFactory;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.resolver.AuthenticationArgumentResolver;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import freemarker.core.TemplateClassResolver;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
@@ -90,7 +90,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String workDir = FILE_PROTOCOL + HaloUtils.ensureSuffix(metnoteProperties.getWorkDir(), HaloConst.FILE_SEPARATOR);
+        String workDir = FILE_PROTOCOL + MetnoteUtils.ensureSuffix(metnoteProperties.getWorkDir(), MetnoteConst.FILE_SEPARATOR);
 
         // register /** resource handler.
         registry.addResourceHandler("/**")
@@ -101,8 +101,8 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/themes/**")
                 .addResourceLocations(workDir + "templates/themes/");
 
-        String uploadUrlPattern = HaloUtils.ensureBoth(metnoteProperties.getUploadUrlPrefix(), HaloUtils.URL_SEPARATOR) + "**";
-        String adminPathPattern = HaloUtils.ensureSuffix(metnoteProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + "**";
+        String uploadUrlPattern = MetnoteUtils.ensureBoth(metnoteProperties.getUploadUrlPrefix(), MetnoteUtils.URL_SEPARATOR) + "**";
+        String adminPathPattern = MetnoteUtils.ensureSuffix(metnoteProperties.getAdminPath(), MetnoteUtils.URL_SEPARATOR) + "**";
 
         registry.addResourceHandler(uploadUrlPattern)
                 .setCacheControl(CacheControl.maxAge(7L, TimeUnit.DAYS))
@@ -169,7 +169,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
         resolver.setExposeRequestAttributes(false);
         resolver.setExposeSessionAttributes(false);
         resolver.setExposeSpringMacroHelpers(true);
-        resolver.setSuffix(HaloConst.SUFFIX_FTL);
+        resolver.setSuffix(MetnoteConst.SUFFIX_FTL);
         resolver.setContentType("text/html; charset=UTF-8");
         registry.viewResolver(resolver);
     }

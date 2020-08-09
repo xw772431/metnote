@@ -1,6 +1,6 @@
 package com.metnote.utils;
 
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -33,13 +33,13 @@ class VersionUtilTest {
                 RandomStringUtils.randomNumeric(1),
                 RandomStringUtils.randomNumeric(2),
                 RandomStringUtils.randomNumeric(3));
-        assertFalse(VersionUtil.compareVersion(HaloConst.UNKNOWN_VERSION, randomVersion));
+        assertFalse(VersionUtil.compareVersion(MetnoteConst.UNKNOWN_VERSION, randomVersion));
     }
 
     @Test
     void unknownOrEmptyCanonicalVersionTest() {
         assertThrows(IllegalArgumentException.class, () -> VersionUtil.getCanonicalVersion(null));
-        int[] version = VersionUtil.getCanonicalVersion(HaloConst.UNKNOWN_VERSION);
+        int[] version = VersionUtil.getCanonicalVersion(MetnoteConst.UNKNOWN_VERSION);
         assertNotNull(version);
         assertEquals(4, version.length);
         for (int v : version) {

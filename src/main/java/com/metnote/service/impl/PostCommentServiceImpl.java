@@ -10,7 +10,7 @@ import com.metnote.model.entity.PostComment;
 import com.metnote.model.enums.CommentViolationTypeEnum;
 import com.metnote.model.enums.PostPermalinkType;
 import com.metnote.model.properties.CommentProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.model.vo.PostCommentWithPostVO;
 import com.metnote.repository.PostCommentRepository;
 import com.metnote.repository.PostRepository;
@@ -126,11 +126,11 @@ public class PostCommentServiceImpl extends BaseCommentServiceImpl<PostComment> 
             fullPath.append(optionService.getBlogBaseUrl());
         }
 
-        fullPath.append(HaloConst.URL_SEPARATOR);
+        fullPath.append(MetnoteConst.URL_SEPARATOR);
 
         if (permalinkType.equals(PostPermalinkType.DEFAULT)) {
             fullPath.append(archivesPrefix)
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(post.getSlug())
                     .append(pathSuffix);
         } else if (permalinkType.equals(PostPermalinkType.ID)) {
@@ -138,18 +138,18 @@ public class PostCommentServiceImpl extends BaseCommentServiceImpl<PostComment> 
                     .append(post.getId());
         } else if (permalinkType.equals(PostPermalinkType.DATE)) {
             fullPath.append(DateUtil.year(post.getCreateTime()))
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(monthString)
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(post.getSlug())
                     .append(pathSuffix);
         } else if (permalinkType.equals(PostPermalinkType.DAY)) {
             fullPath.append(DateUtil.year(post.getCreateTime()))
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(monthString)
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(dayString)
-                    .append(HaloConst.URL_SEPARATOR)
+                    .append(MetnoteConst.URL_SEPARATOR)
                     .append(post.getSlug())
                     .append(pathSuffix);
         }

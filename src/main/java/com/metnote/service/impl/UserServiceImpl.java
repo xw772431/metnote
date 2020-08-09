@@ -17,7 +17,7 @@ import com.metnote.repository.UserRepository;
 import com.metnote.service.UserService;
 import com.metnote.service.base.AbstractCrudService;
 import com.metnote.utils.DateUtils;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.lang.NonNull;
@@ -114,7 +114,7 @@ public class UserServiceImpl extends AbstractCrudService<User, Integer> implemen
         User updatedUser = update(user);
 
         // Log it
-        eventPublisher.publishEvent(new LogEvent(this, updatedUser.getId().toString(), LogType.PASSWORD_UPDATED, HaloUtils.desensitize(oldPassword, 2, 1)));
+        eventPublisher.publishEvent(new LogEvent(this, updatedUser.getId().toString(), LogType.PASSWORD_UPDATED, MetnoteUtils.desensitize(oldPassword, 2, 1)));
 
         return updatedUser;
     }
@@ -138,7 +138,7 @@ public class UserServiceImpl extends AbstractCrudService<User, Integer> implemen
         if (user.getExpireTime() != null && user.getExpireTime().after(now)) {
             long seconds = TimeUnit.MILLISECONDS.toSeconds(user.getExpireTime().getTime() - now.getTime());
             // If expired
-            throw new ForbiddenException("账号已被停用，请 " + HaloUtils.timeFormat(seconds) + " 后重试").setErrorData(seconds);
+            throw new ForbiddenException("账号已被停用，请 " + MetnoteUtils.timeFormat(seconds) + " 后重试").setErrorData(seconds);
         }
     }
 

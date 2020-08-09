@@ -22,7 +22,7 @@ import com.metnote.model.enums.PostStatus;
 import com.metnote.model.params.LoginParam;
 import com.metnote.model.params.ResetPasswordParam;
 import com.metnote.model.properties.EmailProperties;
-import com.metnote.model.support.HaloConst;
+import com.metnote.model.support.MetnoteConst;
 import com.metnote.security.authentication.Authentication;
 import com.metnote.security.context.SecurityContextHolder;
 import com.metnote.security.token.AuthToken;
@@ -38,7 +38,7 @@ import com.metnote.service.SheetCommentService;
 import com.metnote.service.SheetService;
 import com.metnote.service.UserService;
 import com.metnote.utils.FileUtils;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import com.metnote.utils.TwoFactorAuthUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -64,11 +64,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
-import static com.metnote.model.support.HaloConst.DATABASE_PRODUCT_NAME;
-import static com.metnote.model.support.HaloConst.HALO_ADMIN_RELATIVE_BACKUP_PATH;
-import static com.metnote.model.support.HaloConst.HALO_ADMIN_RELATIVE_PATH;
-import static com.metnote.model.support.HaloConst.HALO_ADMIN_RELEASES_LATEST;
-import static com.metnote.model.support.HaloConst.HALO_ADMIN_VERSION_REGEX;
+import static com.metnote.model.support.MetnoteConst.DATABASE_PRODUCT_NAME;
+import static com.metnote.model.support.MetnoteConst.METNOTE_ADMIN_RELATIVE_BACKUP_PATH;
+import static com.metnote.model.support.MetnoteConst.METNOTE_ADMIN_RELATIVE_PATH;
+import static com.metnote.model.support.MetnoteConst.METNOTE_ADMIN_RELEASES_LATEST;
+import static com.metnote.model.support.MetnoteConst.METNOTE_ADMIN_VERSION_REGEX;
 
 /**
  * Admin service implementation.
@@ -327,7 +327,7 @@ public class AdminServiceImpl implements AdminService {
 
         environmentDTO.setDatabase(DATABASE_PRODUCT_NAME);
 
-        environmentDTO.setVersion(HaloConst.HALO_VERSION);
+        environmentDTO.setVersion(MetnoteConst.METNOTE_VERSION);
 
         environmentDTO.setMode(metnoteProperties.getMode());
 
@@ -359,11 +359,11 @@ public class AdminServiceImpl implements AdminService {
     @SuppressWarnings("unchecked")
     public void updateAdminAssets() {
         // Request github api
-        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(HaloConst.HALO_ADMIN_RELEASES_LATEST, Map.class);
+        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(MetnoteConst.METNOTE_ADMIN_RELEASES_LATEST, Map.class);
 
         if (responseEntity.getStatusCode().isError() || responseEntity.getBody() == null) {
-            log.debug("Failed to request remote url: [{}]", HALO_ADMIN_RELEASES_LATEST);
-            throw new ServiceException("系统无法访问到 Github 的 API").setErrorData(HALO_ADMIN_RELEASES_LATEST);
+            log.debug("Failed to request remote url: [{}]", METNOTE_ADMIN_RELEASES_LATEST);
+            throw new ServiceException("系统无法访问到 Github 的 API").setErrorData(METNOTE_ADMIN_RELEASES_LATEST);
         }
 
         Object assetsObject = responseEntity.getBody().get("assets");
@@ -387,10 +387,10 @@ public class AdminServiceImpl implements AdminService {
                 throw new ServiceException("Failed to request remote url: " + browserDownloadUrl.toString()).setErrorData(browserDownloadUrl.toString());
             }
 
-            String adminTargetName = metnoteProperties.getWorkDir() + HALO_ADMIN_RELATIVE_PATH;
+            String adminTargetName = metnoteProperties.getWorkDir() + METNOTE_ADMIN_RELATIVE_PATH;
 
             Path adminPath = Paths.get(adminTargetName);
-            Path adminBackupPath = Paths.get(metnoteProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
+            Path adminBackupPath = Paths.get(metnoteProperties.getWorkDir(), METNOTE_ADMIN_RELATIVE_BACKUP_PATH);
 
             backupAndClearAdminAssetsIfPresent(adminPath, adminBackupPath);
 
@@ -420,7 +420,7 @@ public class AdminServiceImpl implements AdminService {
             String contentType = aAssetMap.getOrDefault("content_type", "").toString();
 
             Object name = aAssetMap.getOrDefault("name", "");
-            return name.toString().matches(HALO_ADMIN_VERSION_REGEX) && "application/zip".equalsIgnoreCase(contentType);
+            return name.toString().matches(METNOTE_ADMIN_VERSION_REGEX) && "application/zip".equalsIgnoreCase(contentType);
         };
     }
 
@@ -430,7 +430,7 @@ public class AdminServiceImpl implements AdminService {
 
         if (!FileUtils.isEmpty(sourcePath)) {
             // Clone this assets
-            Path adminPathBackup = Paths.get(metnoteProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
+            Path adminPathBackup = Paths.get(metnoteProperties.getWorkDir(), METNOTE_ADMIN_RELATIVE_BACKUP_PATH);
 
             // Delete backup
             FileUtils.deleteFolder(backupPath);
@@ -458,9 +458,9 @@ public class AdminServiceImpl implements AdminService {
         // Generate new token
         AuthToken token = new AuthToken();
 
-        token.setAccessToken(HaloUtils.randomUUIDWithoutDash());
+        token.setAccessToken(MetnoteUtils.randomUUIDWithoutDash());
         token.setExpiredIn(ACCESS_TOKEN_EXPIRED_SECONDS);
-        token.setRefreshToken(HaloUtils.randomUUIDWithoutDash());
+        token.setRefreshToken(MetnoteUtils.randomUUIDWithoutDash());
 
         // Cache those tokens, just for clearing
         cacheStore.putAny(SecurityUtils.buildAccessTokenKey(user), token.getAccessToken(), ACCESS_TOKEN_EXPIRED_SECONDS, TimeUnit.SECONDS);

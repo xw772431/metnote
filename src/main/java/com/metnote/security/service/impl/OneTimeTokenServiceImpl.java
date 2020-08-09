@@ -2,7 +2,7 @@ package com.metnote.security.service.impl;
 
 import com.metnote.cache.AbstractStringCacheStore;
 import com.metnote.security.service.OneTimeTokenService;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -41,7 +41,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
         Assert.hasText(uri, "Request uri must not be blank");
 
         // Generate ott
-        String oneTimeToken = HaloUtils.randomUUIDWithoutDash();
+        String oneTimeToken = MetnoteUtils.randomUUIDWithoutDash();
 
         // Put ott along with request uri
         cacheStore.put(oneTimeToken, uri, OTT_EXPIRED_DAY, TimeUnit.DAYS);

@@ -2,7 +2,7 @@ package com.metnote.config;
 
 import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.StaticStorageChangedEvent;
-import com.metnote.utils.HaloUtils;
+import com.metnote.utils.MetnoteUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.util.AntPathMatcher;
@@ -50,8 +50,8 @@ public class HaloRequestMappingHandlerMapping extends RequestMappingHandlerMappi
     }
 
     private void initBlackPatterns() {
-        String uploadUrlPattern = HaloUtils.ensureBoth(metnoteProperties.getUploadUrlPrefix(), HaloUtils.URL_SEPARATOR) + "**";
-        String adminPathPattern = HaloUtils.ensureBoth(metnoteProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + "?*/**";
+        String uploadUrlPattern = MetnoteUtils.ensureBoth(metnoteProperties.getUploadUrlPrefix(), MetnoteUtils.URL_SEPARATOR) + "**";
+        String adminPathPattern = MetnoteUtils.ensureBoth(metnoteProperties.getAdminPath(), MetnoteUtils.URL_SEPARATOR) + "?*/**";
 
         blackPatterns.add("/themes/**");
         blackPatterns.add("/js/**");
