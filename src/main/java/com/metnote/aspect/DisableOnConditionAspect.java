@@ -1,7 +1,7 @@
 package com.metnote.aspect;
 
 import com.metnote.annotation.DisableOnCondition;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.ForbiddenException;
 import com.metnote.model.enums.Mode;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisableOnConditionAspect {
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
-    public DisableOnConditionAspect(HaloProperties haloProperties) {
-        this.haloProperties = haloProperties;
+    public DisableOnConditionAspect(MetnoteProperties metnoteProperties) {
+        this.metnoteProperties = metnoteProperties;
     }
 
     @Pointcut("@annotation(com.metnote.annotation.DisableOnCondition)")
@@ -36,7 +36,7 @@ public class DisableOnConditionAspect {
     public Object around(ProceedingJoinPoint joinPoint,
                          DisableOnCondition disableApi) throws Throwable {
         Mode mode = disableApi.mode();
-        if (haloProperties.getMode().equals(mode)) {
+        if (metnoteProperties.getMode().equals(mode)) {
             throw new ForbiddenException("禁止访问");
         }
 

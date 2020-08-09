@@ -1,7 +1,7 @@
 package com.metnote.cache;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -39,10 +39,10 @@ public class RedisCacheStore extends AbstractStringCacheStore {
      */
     private final Lock lock = new ReentrantLock();
 
-    protected HaloProperties haloProperties;
+    protected MetnoteProperties metnoteProperties;
 
-    public RedisCacheStore(HaloProperties haloProperties) {
-        this.haloProperties = haloProperties;
+    public RedisCacheStore(MetnoteProperties metnoteProperties) {
+        this.metnoteProperties = metnoteProperties;
         initRedis();
     }
 
@@ -52,7 +52,7 @@ public class RedisCacheStore extends AbstractStringCacheStore {
         cfg.setMaxTotal(30);
         cfg.setMaxWaitMillis(5000);
         Set<HostAndPort> nodes = new HashSet<>();
-        for (String hostPort : this.haloProperties.getCacheRedisNodes()) {
+        for (String hostPort : this.metnoteProperties.getCacheRedisNodes()) {
             String[] temp = hostPort.split(":");
             if (temp.length > 0) {
                 String host = temp[0];
@@ -70,7 +70,7 @@ public class RedisCacheStore extends AbstractStringCacheStore {
         if (nodes.isEmpty()) {
             nodes.add(new HostAndPort("127.0.0.1", 6379));
         }
-        REDIS = new JedisCluster(nodes, 5, 20, 3, this.haloProperties.getCacheRedisPassword(), cfg);
+        REDIS = new JedisCluster(nodes, 5, 20, 3, this.metnoteProperties.getCacheRedisPassword(), cfg);
         log.info("Initialized cache redis cluster: {}", REDIS.getClusterNodes());
     }
 

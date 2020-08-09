@@ -1,7 +1,7 @@
 package com.metnote.cache;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.iq80.leveldb.DB;
@@ -41,7 +41,7 @@ public class LevelCacheStore extends AbstractStringCacheStore {
     private Timer timer;
 
     @Autowired
-    private HaloProperties haloProperties;
+    private MetnoteProperties metnoteProperties;
 
     @PostConstruct
     public void init() {
@@ -50,7 +50,7 @@ public class LevelCacheStore extends AbstractStringCacheStore {
         }
         try {
             //work path
-            File folder = new File(haloProperties.getWorkDir() + ".leveldb");
+            File folder = new File(metnoteProperties.getWorkDir() + ".leveldb");
             DBFactory factory = new Iq80DBFactory();
             Options options = new Options();
             options.createIfMissing(true);

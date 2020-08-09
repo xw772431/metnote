@@ -1,6 +1,6 @@
 package com.metnote.listener;
 
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.model.properties.PrimaryProperties;
 import com.metnote.model.support.HaloConst;
 import com.metnote.service.OptionService;
@@ -48,7 +48,7 @@ import java.util.Collections;
 public class StartedListener implements ApplicationListener<ApplicationStartedEvent> {
 
     @Autowired
-    private HaloProperties haloProperties;
+    private MetnoteProperties metnoteProperties;
 
     @Autowired
     private OptionService optionService;
@@ -80,8 +80,8 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     private void printStartInfo() {
         String blogUrl = optionService.getBlogBaseUrl();
         log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "Halo started at         ", blogUrl));
-        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "Halo admin started at   ", blogUrl, "/", haloProperties.getAdminPath()));
-        if (!haloProperties.isDocDisabled()) {
+        log.info(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "Halo admin started at   ", blogUrl, "/", metnoteProperties.getAdminPath()));
+        if (!metnoteProperties.isDocDisabled()) {
             log.debug(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE, "Halo api doc was enabled at  ", blogUrl, "/swagger-ui.html"));
         }
         log.info(AnsiOutput.toString(AnsiColor.BRIGHT_YELLOW, "Halo has started successfully!"));
@@ -146,7 +146,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
             Path themePath = themeService.getBasePath();
 
             // Fix the problem that the project cannot start after moving to a new server
-            if (!haloProperties.isProductionEnv() || Files.notExists(themePath) || !isInstalled) {
+            if (!metnoteProperties.isProductionEnv() || Files.notExists(themePath) || !isInstalled) {
                 FileUtils.copyFolder(source, themePath);
                 log.debug("Copied theme folder from [{}] to [{}]", source, themePath);
             } else {
@@ -173,9 +173,9 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     }
 
     private void initDirectory() {
-        Path workPath = Paths.get(haloProperties.getWorkDir());
-        Path backupPath = Paths.get(haloProperties.getBackupDir());
-        Path dataExportPath = Paths.get(haloProperties.getDataExportDir());
+        Path workPath = Paths.get(metnoteProperties.getWorkDir());
+        Path backupPath = Paths.get(metnoteProperties.getBackupDir());
+        Path dataExportPath = Paths.get(metnoteProperties.getDataExportDir());
 
         try {
             if (Files.notExists(workPath)) {

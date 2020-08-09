@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.options.OptionUpdatedEvent;
 import com.metnote.event.theme.ThemeUpdatedEvent;
 import com.metnote.exception.NotFoundException;
@@ -159,11 +159,11 @@ public class BackupServiceImpl implements BackupService {
 
     private final OneTimeTokenService oneTimeTokenService;
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     private final ApplicationEventPublisher eventPublisher;
 
-    public BackupServiceImpl(AttachmentService attachmentService, CategoryService categoryService, CommentBlackListService commentBlackListService, JournalService journalService, JournalCommentService journalCommentService, LinkService linkService, LogService logService, MenuService menuService, OptionService optionService, PhotoService photoService, PostService postService, PostCategoryService postCategoryService, PostCommentService postCommentService, PostMetaService postMetaService, PostTagService postTagService, SheetService sheetService, SheetCommentService sheetCommentService, SheetMetaService sheetMetaService, TagService tagService, ThemeSettingService themeSettingService, UserService userService, OneTimeTokenService oneTimeTokenService, HaloProperties haloProperties, ApplicationEventPublisher eventPublisher) {
+    public BackupServiceImpl(AttachmentService attachmentService, CategoryService categoryService, CommentBlackListService commentBlackListService, JournalService journalService, JournalCommentService journalCommentService, LinkService linkService, LogService logService, MenuService menuService, OptionService optionService, PhotoService photoService, PostService postService, PostCategoryService postCategoryService, PostCommentService postCommentService, PostMetaService postMetaService, PostTagService postTagService, SheetService sheetService, SheetCommentService sheetCommentService, SheetMetaService sheetMetaService, TagService tagService, ThemeSettingService themeSettingService, UserService userService, OneTimeTokenService oneTimeTokenService, MetnoteProperties metnoteProperties, ApplicationEventPublisher eventPublisher) {
         this.attachmentService = attachmentService;
         this.categoryService = categoryService;
         this.commentBlackListService = commentBlackListService;
@@ -186,7 +186,7 @@ public class BackupServiceImpl implements BackupService {
         this.themeSettingService = themeSettingService;
         this.userService = userService;
         this.oneTimeTokenService = oneTimeTokenService;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
         this.eventPublisher = eventPublisher;
     }
 
@@ -223,10 +223,10 @@ public class BackupServiceImpl implements BackupService {
                     DateTimeUtils.format(LocalDateTime.now(), DateTimeUtils.HORIZONTAL_LINE_DATETIME_FORMATTER) +
                     IdUtil.simpleUUID().hashCode() + ".zip";
             // Create halo zip file
-            Path haloZipPath = Files.createFile(Paths.get(haloProperties.getBackupDir(), haloZipFileName));
+            Path haloZipPath = Files.createFile(Paths.get(metnoteProperties.getBackupDir(), haloZipFileName));
 
             // Zip halo
-            FileUtils.zip(Paths.get(this.haloProperties.getWorkDir()), haloZipPath);
+            FileUtils.zip(Paths.get(this.metnoteProperties.getWorkDir()), haloZipPath);
 
             // Build backup dto
             return buildBackupDto(BACKUP_RESOURCE_BASE_URI, haloZipPath);
@@ -238,7 +238,7 @@ public class BackupServiceImpl implements BackupService {
     @Override
     public List<BackupDTO> listWorkDirBackups() {
         // Ensure the parent folder exist
-        Path backupParentPath = Paths.get(haloProperties.getBackupDir());
+        Path backupParentPath = Paths.get(metnoteProperties.getBackupDir());
         if (Files.notExists(backupParentPath)) {
             return Collections.emptyList();
         }
@@ -259,7 +259,7 @@ public class BackupServiceImpl implements BackupService {
     public void deleteWorkDirBackup(String fileName) {
         Assert.hasText(fileName, "File name must not be blank");
 
-        Path backupRootPath = Paths.get(haloProperties.getBackupDir());
+        Path backupRootPath = Paths.get(metnoteProperties.getBackupDir());
 
         // Get backup path
         Path backupPath = backupRootPath.resolve(fileName);
@@ -343,7 +343,7 @@ public class BackupServiceImpl implements BackupService {
                     DateTimeUtils.format(LocalDateTime.now(), DateTimeUtils.HORIZONTAL_LINE_DATETIME_FORMATTER) +
                     IdUtil.simpleUUID().hashCode() + ".json";
 
-            Path haloDataPath = Files.createFile(Paths.get(haloProperties.getDataExportDir(), haloDataFileName));
+            Path haloDataPath = Files.createFile(Paths.get(metnoteProperties.getDataExportDir(), haloDataFileName));
 
             FileWriter fileWriter = new FileWriter(haloDataPath.toFile(), CharsetUtil.UTF_8);
             fileWriter.write(JsonUtils.objectToJson(data));
@@ -357,7 +357,7 @@ public class BackupServiceImpl implements BackupService {
     @Override
     public List<BackupDTO> listExportedData() {
 
-        Path exportedDataParentPath = Paths.get(haloProperties.getDataExportDir());
+        Path exportedDataParentPath = Paths.get(metnoteProperties.getDataExportDir());
         if (Files.notExists(exportedDataParentPath)) {
             return Collections.emptyList();
         }
@@ -377,7 +377,7 @@ public class BackupServiceImpl implements BackupService {
     public void deleteExportedData(String fileName) {
         Assert.hasText(fileName, "File name must not be blank");
 
-        Path dataExportRootPath = Paths.get(haloProperties.getDataExportDir());
+        Path dataExportRootPath = Paths.get(metnoteProperties.getDataExportDir());
 
         Path backupPath = dataExportRootPath.resolve(fileName);
 

@@ -1,6 +1,6 @@
 package com.metnote.controller.content;
 
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.ServiceException;
 import com.metnote.model.entity.User;
 import com.metnote.model.properties.BlogProperties;
@@ -39,17 +39,17 @@ public class MainController {
 
     private final OptionService optionService;
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
-    public MainController(UserService userService, OptionService optionService, HaloProperties haloProperties) {
+    public MainController(UserService userService, OptionService optionService, MetnoteProperties metnoteProperties) {
         this.userService = userService;
         this.optionService = optionService;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
     }
 
     @GetMapping("${halo.admin-path:admin}")
     public void admin(HttpServletResponse response) throws IOException {
-        String adminIndexRedirectUri = HaloUtils.ensureBoth(haloProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + INDEX_REDIRECT_URI;
+        String adminIndexRedirectUri = HaloUtils.ensureBoth(metnoteProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + INDEX_REDIRECT_URI;
         response.sendRedirect(adminIndexRedirectUri);
     }
 
@@ -61,7 +61,7 @@ public class MainController {
 
     @GetMapping("install")
     public void installation(HttpServletResponse response) throws IOException {
-        String installRedirectUri = StringUtils.appendIfMissing(this.haloProperties.getAdminPath(), "/") + INSTALL_REDIRECT_URI;
+        String installRedirectUri = StringUtils.appendIfMissing(this.metnoteProperties.getAdminPath(), "/") + INSTALL_REDIRECT_URI;
         response.sendRedirect(installRedirectUri);
     }
 

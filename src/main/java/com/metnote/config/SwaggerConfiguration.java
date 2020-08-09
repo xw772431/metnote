@@ -1,7 +1,7 @@
 package com.metnote.config;
 
 import com.fasterxml.classmate.TypeResolver;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.model.entity.User;
 import com.metnote.model.support.HaloConst;
 import com.metnote.security.support.UserDetail;
@@ -54,7 +54,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @Slf4j
 public class SwaggerConfiguration {
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     private final List<ResponseMessage> globalResponses = Arrays.asList(
             new ResponseMessageBuilder().code(200).message("Success").build(),
@@ -64,13 +64,13 @@ public class SwaggerConfiguration {
             new ResponseMessageBuilder().code(404).message("Not found").build(),
             new ResponseMessageBuilder().code(500).message("Internal server error").build());
 
-    public SwaggerConfiguration(HaloProperties haloProperties) {
-        this.haloProperties = haloProperties;
+    public SwaggerConfiguration(MetnoteProperties metnoteProperties) {
+        this.metnoteProperties = metnoteProperties;
     }
 
     @Bean
     public Docket haloDefaultApi() {
-        if (haloProperties.isDocDisabled()) {
+        if (metnoteProperties.isDocDisabled()) {
             log.debug("Doc has been disabled");
         }
 
@@ -79,12 +79,12 @@ public class SwaggerConfiguration {
                 "/api/content/**")
                 .securitySchemes(contentApiKeys())
                 .securityContexts(contentSecurityContext())
-                .enable(!haloProperties.isDocDisabled());
+                .enable(!metnoteProperties.isDocDisabled());
     }
 
     @Bean
     public Docket haloAdminApi() {
-        if (haloProperties.isDocDisabled()) {
+        if (metnoteProperties.isDocDisabled()) {
             log.debug("Doc has been disabled");
         }
 
@@ -93,7 +93,7 @@ public class SwaggerConfiguration {
                 "/api/admin/**")
                 .securitySchemes(adminApiKeys())
                 .securityContexts(adminSecurityContext())
-                .enable(!haloProperties.isDocDisabled());
+                .enable(!metnoteProperties.isDocDisabled());
     }
 
     @Bean

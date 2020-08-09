@@ -1,7 +1,7 @@
 package com.metnote.service.impl;
 
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.options.OptionUpdatedEvent;
 import com.metnote.exception.MissingPropertyException;
 import com.metnote.model.dto.OptionDTO;
@@ -71,15 +71,15 @@ public class OptionServiceImpl extends AbstractCrudService<Option, Integer> impl
     private final AbstractStringCacheStore cacheStore;
     private final Map<String, PropertyEnum> propertyEnumMap;
     private final ApplicationEventPublisher eventPublisher;
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
-    public OptionServiceImpl(HaloProperties haloProperties,
+    public OptionServiceImpl(MetnoteProperties metnoteProperties,
                              OptionRepository optionRepository,
                              ApplicationContext applicationContext,
                              AbstractStringCacheStore cacheStore,
                              ApplicationEventPublisher eventPublisher) {
         super(optionRepository);
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
         this.optionRepository = optionRepository;
         this.applicationContext = applicationContext;
         this.cacheStore = cacheStore;

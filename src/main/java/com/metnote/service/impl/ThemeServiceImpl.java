@@ -1,7 +1,7 @@
 package com.metnote.service.impl;
 
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.theme.ThemeActivatedEvent;
 import com.metnote.event.theme.ThemeUpdatedEvent;
 import com.metnote.exception.AlreadyExistsException;
@@ -107,7 +107,7 @@ public class ThemeServiceImpl implements ThemeService {
      */
     private volatile ThemeProperty activatedTheme;
 
-    public ThemeServiceImpl(HaloProperties haloProperties,
+    public ThemeServiceImpl(MetnoteProperties metnoteProperties,
                             OptionService optionService,
                             AbstractStringCacheStore cacheStore,
                             ThemeConfigResolver themeConfigResolver,
@@ -118,7 +118,7 @@ public class ThemeServiceImpl implements ThemeService {
         this.themeConfigResolver = themeConfigResolver;
         this.restTemplate = restTemplate;
 
-        themeWorkDir = Paths.get(haloProperties.getWorkDir(), THEME_FOLDER);
+        themeWorkDir = Paths.get(metnoteProperties.getWorkDir(), THEME_FOLDER);
         this.eventPublisher = eventPublisher;
     }
 

@@ -2,7 +2,7 @@ package com.metnote.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.AuthenticationException;
 import com.metnote.model.entity.User;
 import com.metnote.model.support.HaloConst;
@@ -38,19 +38,19 @@ import java.util.Optional;
 @Order(1)
 public class AdminAuthenticationFilter extends AbstractAuthenticationFilter {
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     private final UserService userService;
 
     public AdminAuthenticationFilter(AbstractStringCacheStore cacheStore,
                                      UserService userService,
-                                     HaloProperties haloProperties,
+                                     MetnoteProperties metnoteProperties,
                                      OptionService optionService,
                                      OneTimeTokenService oneTimeTokenService,
                                      ObjectMapper objectMapper) {
-        super(haloProperties, optionService, cacheStore, oneTimeTokenService);
+        super(metnoteProperties, optionService, cacheStore, oneTimeTokenService);
         this.userService = userService;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
 
         addUrlPatterns("/api/admin/**", "/api/content/comments");
 
@@ -67,7 +67,7 @@ public class AdminAuthenticationFilter extends AbstractAuthenticationFilter {
 
         // set failure handler
         DefaultAuthenticationFailureHandler failureHandler = new DefaultAuthenticationFailureHandler();
-        failureHandler.setProductionEnv(haloProperties.isProductionEnv());
+        failureHandler.setProductionEnv(metnoteProperties.isProductionEnv());
         failureHandler.setObjectMapper(objectMapper);
 
         setFailureHandler(failureHandler);
@@ -77,7 +77,7 @@ public class AdminAuthenticationFilter extends AbstractAuthenticationFilter {
     @Override
     protected void doAuthenticate(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (!haloProperties.isAuthEnabled()) {
+        if (!metnoteProperties.isAuthEnabled()) {
             // Set security
             userService.getCurrentUser().ifPresent(user ->
                     SecurityContextHolder.setContext(new SecurityContextImpl(new AuthenticationImpl(new UserDetail(user)))));

@@ -1,7 +1,7 @@
 package com.metnote.security.filter;
 
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.AbstractHaloException;
 import com.metnote.exception.BadRequestException;
 import com.metnote.exception.ForbiddenException;
@@ -44,7 +44,7 @@ import java.util.Set;
 public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter {
 
     protected final AntPathMatcher antPathMatcher;
-    protected final HaloProperties haloProperties;
+    protected final MetnoteProperties metnoteProperties;
     protected final OptionService optionService;
     protected final AbstractStringCacheStore cacheStore;
     private final UrlPathHelper urlPathHelper = new UrlPathHelper();
@@ -58,11 +58,11 @@ public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter 
 
     private Set<String> urlPatterns = new LinkedHashSet<>();
 
-    AbstractAuthenticationFilter(HaloProperties haloProperties,
+    AbstractAuthenticationFilter(MetnoteProperties metnoteProperties,
                                  OptionService optionService,
                                  AbstractStringCacheStore cacheStore,
                                  OneTimeTokenService oneTimeTokenService) {
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
         this.optionService = optionService;
         this.cacheStore = cacheStore;
         this.oneTimeTokenService = oneTimeTokenService;
@@ -150,7 +150,7 @@ public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter 
                 if (failureHandler == null) {
                     // Create default authentication failure handler
                     DefaultAuthenticationFailureHandler failureHandler = new DefaultAuthenticationFailureHandler();
-                    failureHandler.setProductionEnv(haloProperties.isProductionEnv());
+                    failureHandler.setProductionEnv(metnoteProperties.isProductionEnv());
 
                     this.failureHandler = failureHandler;
                 }
@@ -175,7 +175,7 @@ public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter 
         // Check whether the blog is installed or not
         Boolean isInstalled = optionService.getByPropertyOrDefault(PrimaryProperties.IS_INSTALLED, Boolean.class, false);
 
-        if (!isInstalled && !Mode.TEST.equals(haloProperties.getMode())) {
+        if (!isInstalled && !Mode.TEST.equals(metnoteProperties.getMode())) {
             // If not installed
             getFailureHandler().onFailure(request, response, new NotInstallException("当前博客还没有初始化"));
             return;

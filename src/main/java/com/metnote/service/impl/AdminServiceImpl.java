@@ -5,7 +5,7 @@ import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.logger.LogEvent;
 import com.metnote.exception.BadRequestException;
 import com.metnote.exception.NotFoundException;
@@ -105,7 +105,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final RestTemplate restTemplate;
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     private final ApplicationEventPublisher eventPublisher;
 
@@ -121,7 +121,7 @@ public class AdminServiceImpl implements AdminService {
                             MailService mailService,
                             AbstractStringCacheStore cacheStore,
                             RestTemplate restTemplate,
-                            HaloProperties haloProperties,
+                            MetnoteProperties metnoteProperties,
                             ApplicationEventPublisher eventPublisher) {
         this.postService = postService;
         this.sheetService = sheetService;
@@ -135,7 +135,7 @@ public class AdminServiceImpl implements AdminService {
         this.mailService = mailService;
         this.cacheStore = cacheStore;
         this.restTemplate = restTemplate;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
         this.eventPublisher = eventPublisher;
     }
 
@@ -329,7 +329,7 @@ public class AdminServiceImpl implements AdminService {
 
         environmentDTO.setVersion(HaloConst.HALO_VERSION);
 
-        environmentDTO.setMode(haloProperties.getMode());
+        environmentDTO.setMode(metnoteProperties.getMode());
 
         return environmentDTO;
     }
@@ -387,10 +387,10 @@ public class AdminServiceImpl implements AdminService {
                 throw new ServiceException("Failed to request remote url: " + browserDownloadUrl.toString()).setErrorData(browserDownloadUrl.toString());
             }
 
-            String adminTargetName = haloProperties.getWorkDir() + HALO_ADMIN_RELATIVE_PATH;
+            String adminTargetName = metnoteProperties.getWorkDir() + HALO_ADMIN_RELATIVE_PATH;
 
             Path adminPath = Paths.get(adminTargetName);
-            Path adminBackupPath = Paths.get(haloProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
+            Path adminBackupPath = Paths.get(metnoteProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
 
             backupAndClearAdminAssetsIfPresent(adminPath, adminBackupPath);
 
@@ -430,7 +430,7 @@ public class AdminServiceImpl implements AdminService {
 
         if (!FileUtils.isEmpty(sourcePath)) {
             // Clone this assets
-            Path adminPathBackup = Paths.get(haloProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
+            Path adminPathBackup = Paths.get(metnoteProperties.getWorkDir(), HALO_ADMIN_RELATIVE_BACKUP_PATH);
 
             // Delete backup
             FileUtils.deleteFolder(backupPath);
@@ -475,7 +475,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String getApplicationConfig() {
-        File file = new File(haloProperties.getWorkDir(), APPLICATION_CONFIG_NAME);
+        File file = new File(metnoteProperties.getWorkDir(), APPLICATION_CONFIG_NAME);
         if (!file.exists()) {
             return StringUtils.EMPTY;
         }
@@ -487,7 +487,7 @@ public class AdminServiceImpl implements AdminService {
     public void updateApplicationConfig(@NonNull String content) {
         Assert.notNull(content, "Content must not be null");
 
-        Path path = Paths.get(haloProperties.getWorkDir(), APPLICATION_CONFIG_NAME);
+        Path path = Paths.get(metnoteProperties.getWorkDir(), APPLICATION_CONFIG_NAME);
         try {
             Files.write(path, content.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
@@ -499,7 +499,7 @@ public class AdminServiceImpl implements AdminService {
     public String getLogFiles(@NonNull Long lines) {
         Assert.notNull(lines, "Lines must not be null");
 
-        File file = new File(haloProperties.getWorkDir(), LOG_PATH);
+        File file = new File(metnoteProperties.getWorkDir(), LOG_PATH);
 
         List<String> linesArray = new ArrayList<>();
 

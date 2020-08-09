@@ -1,6 +1,6 @@
 package com.metnote.handler.file;
 
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.FileOperationException;
 import com.metnote.model.enums.AttachmentType;
 import com.metnote.model.support.HaloConst;
@@ -59,11 +59,11 @@ public class LocalFileHandler implements FileHandler {
     ReentrantLock lock = new ReentrantLock();
 
     public LocalFileHandler(OptionService optionService,
-                            HaloProperties haloProperties) {
+                            MetnoteProperties metnoteProperties) {
         this.optionService = optionService;
 
         // Get work dir
-        workDir = FileHandler.normalizeDirectory(haloProperties.getWorkDir());
+        workDir = FileHandler.normalizeDirectory(metnoteProperties.getWorkDir());
 
         // Check work directory
         checkWorkDir();

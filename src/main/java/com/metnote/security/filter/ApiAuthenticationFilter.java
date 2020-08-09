@@ -2,7 +2,7 @@ package com.metnote.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.exception.AuthenticationException;
 import com.metnote.exception.ForbiddenException;
 import com.metnote.model.properties.ApiProperties;
@@ -36,12 +36,12 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationFilter {
 
     private final OptionService optionService;
 
-    public ApiAuthenticationFilter(HaloProperties haloProperties,
+    public ApiAuthenticationFilter(MetnoteProperties metnoteProperties,
                                    OptionService optionService,
                                    AbstractStringCacheStore cacheStore,
                                    OneTimeTokenService oneTimeTokenService,
                                    ObjectMapper objectMapper) {
-        super(haloProperties, optionService, cacheStore, oneTimeTokenService);
+        super(metnoteProperties, optionService, cacheStore, oneTimeTokenService);
         this.optionService = optionService;
 
         addUrlPatterns("/api/content/**");
@@ -54,14 +54,14 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationFilter {
 
         // set failure handler
         DefaultAuthenticationFailureHandler failureHandler = new DefaultAuthenticationFailureHandler();
-        failureHandler.setProductionEnv(haloProperties.isProductionEnv());
+        failureHandler.setProductionEnv(metnoteProperties.isProductionEnv());
         failureHandler.setObjectMapper(objectMapper);
         setFailureHandler(failureHandler);
     }
 
     @Override
     protected void doAuthenticate(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (!haloProperties.isAuthEnabled()) {
+        if (!metnoteProperties.isAuthEnabled()) {
             filterChain.doFilter(request, response);
             return;
         }

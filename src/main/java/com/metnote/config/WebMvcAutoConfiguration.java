@@ -1,7 +1,7 @@
 package com.metnote.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.core.PageJacksonSerializer;
 import com.metnote.factory.StringToEnumConverterFactory;
 import com.metnote.model.support.HaloConst;
@@ -51,14 +51,14 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
 
     private final SortHandlerMethodArgumentResolver sortResolver;
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     public WebMvcAutoConfiguration(PageableHandlerMethodArgumentResolver pageableResolver,
                                    SortHandlerMethodArgumentResolver sortResolver,
-                                   HaloProperties haloProperties) {
+                                   MetnoteProperties metnoteProperties) {
         this.pageableResolver = pageableResolver;
         this.sortResolver = sortResolver;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String workDir = FILE_PROTOCOL + HaloUtils.ensureSuffix(haloProperties.getWorkDir(), HaloConst.FILE_SEPARATOR);
+        String workDir = FILE_PROTOCOL + HaloUtils.ensureSuffix(metnoteProperties.getWorkDir(), HaloConst.FILE_SEPARATOR);
 
         // register /** resource handler.
         registry.addResourceHandler("/**")
@@ -101,8 +101,8 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/themes/**")
                 .addResourceLocations(workDir + "templates/themes/");
 
-        String uploadUrlPattern = HaloUtils.ensureBoth(haloProperties.getUploadUrlPrefix(), HaloUtils.URL_SEPARATOR) + "**";
-        String adminPathPattern = HaloUtils.ensureSuffix(haloProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + "**";
+        String uploadUrlPattern = HaloUtils.ensureBoth(metnoteProperties.getUploadUrlPrefix(), HaloUtils.URL_SEPARATOR) + "**";
+        String adminPathPattern = HaloUtils.ensureSuffix(metnoteProperties.getAdminPath(), HaloUtils.URL_SEPARATOR) + "**";
 
         registry.addResourceHandler(uploadUrlPattern)
                 .setCacheControl(CacheControl.maxAge(7L, TimeUnit.DAYS))
@@ -110,7 +110,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler(adminPathPattern)
                 .addResourceLocations("classpath:/admin/");
 
-        if (!haloProperties.isDocDisabled()) {
+        if (!metnoteProperties.isDocDisabled()) {
             // If doc is enable
             registry.addResourceHandler("swagger-ui.html")
                     .addResourceLocations("classpath:/META-INF/resources/");
@@ -131,9 +131,9 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
      * @return new FreeMarkerConfigurer
      */
     @Bean
-    public FreeMarkerConfigurer freemarkerConfig(HaloProperties haloProperties) throws IOException, TemplateException {
+    public FreeMarkerConfigurer freemarkerConfig(MetnoteProperties metnoteProperties) throws IOException, TemplateException {
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-        configurer.setTemplateLoaderPaths(FILE_PROTOCOL + haloProperties.getWorkDir() + "templates/", "classpath:/templates/");
+        configurer.setTemplateLoaderPaths(FILE_PROTOCOL + metnoteProperties.getWorkDir() + "templates/", "classpath:/templates/");
         configurer.setDefaultEncoding("UTF-8");
 
         Properties properties = new Properties();
@@ -146,7 +146,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
 
         configuration.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
 
-        if (haloProperties.isProductionEnv()) {
+        if (metnoteProperties.isProductionEnv()) {
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         }
 
@@ -176,7 +176,7 @@ public class WebMvcAutoConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     protected RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
-        return new HaloRequestMappingHandlerMapping(haloProperties);
+        return new HaloRequestMappingHandlerMapping(metnoteProperties);
     }
 
 }

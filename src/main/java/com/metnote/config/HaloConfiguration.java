@@ -5,7 +5,7 @@ import com.metnote.cache.AbstractStringCacheStore;
 import com.metnote.cache.InMemoryCacheStore;
 import com.metnote.cache.LevelCacheStore;
 import com.metnote.cache.RedisCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.utils.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ import java.security.NoSuchAlgorithmException;
  * @author johnniang
  */
 @Configuration
-@EnableConfigurationProperties(HaloProperties.class)
+@EnableConfigurationProperties(MetnoteProperties.class)
 @Slf4j
 public class HaloConfiguration {
 
     @Autowired
-    HaloProperties haloProperties;
+    MetnoteProperties metnoteProperties;
 
     @Bean
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
@@ -46,7 +46,7 @@ public class HaloConfiguration {
             throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         RestTemplate httpsRestTemplate = builder.build();
         httpsRestTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(HttpClientUtils.createHttpsClient(
-                (int) haloProperties.getDownloadTimeout().toMillis())));
+                (int) metnoteProperties.getDownloadTimeout().toMillis())));
         return httpsRestTemplate;
     }
 
@@ -54,12 +54,12 @@ public class HaloConfiguration {
     @ConditionalOnMissingBean
     public AbstractStringCacheStore stringCacheStore() {
         AbstractStringCacheStore stringCacheStore;
-        switch (haloProperties.getCache()) {
+        switch (metnoteProperties.getCache()) {
             case "level":
                 stringCacheStore = new LevelCacheStore();
                 break;
             case "redis":
-                stringCacheStore = new RedisCacheStore(this.haloProperties);
+                stringCacheStore = new RedisCacheStore(this.metnoteProperties);
                 break;
             case "memory":
             default:

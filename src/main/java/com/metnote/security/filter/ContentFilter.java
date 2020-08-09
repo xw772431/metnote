@@ -1,7 +1,7 @@
 package com.metnote.security.filter;
 
 import com.metnote.cache.AbstractStringCacheStore;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.security.handler.ContentAuthenticationFailureHandler;
 import com.metnote.security.service.OneTimeTokenService;
 import com.metnote.service.OptionService;
@@ -25,15 +25,15 @@ import java.io.IOException;
 @Order(-1)
 public class ContentFilter extends AbstractAuthenticationFilter {
 
-    public ContentFilter(HaloProperties haloProperties,
+    public ContentFilter(MetnoteProperties metnoteProperties,
                          OptionService optionService,
                          AbstractStringCacheStore cacheStore,
                          OneTimeTokenService oneTimeTokenService) {
-        super(haloProperties, optionService, cacheStore, oneTimeTokenService);
+        super(metnoteProperties, optionService, cacheStore, oneTimeTokenService);
 
         addUrlPatterns("/**");
 
-        String adminPattern = HaloUtils.ensureBoth(haloProperties.getAdminPath(), "/") + "**";
+        String adminPattern = HaloUtils.ensureBoth(metnoteProperties.getAdminPath(), "/") + "**";
         addExcludeUrlPatterns(
                 adminPattern,
                 "/api/**",

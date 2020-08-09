@@ -1,7 +1,7 @@
 package com.metnote.controller.admin.api;
 
 import com.metnote.annotation.DisableOnCondition;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.model.dto.BackupDTO;
 import com.metnote.model.dto.post.BasePostDetailDTO;
 import com.metnote.service.BackupService;
@@ -39,12 +39,12 @@ public class BackupController {
 
     private final BackupService backupService;
 
-    private final HaloProperties haloProperties;
+    private final MetnoteProperties metnoteProperties;
 
     public BackupController(BackupService backupService,
-                            HaloProperties haloProperties) {
+                            MetnoteProperties metnoteProperties) {
         this.backupService = backupService;
-        this.haloProperties = haloProperties;
+        this.metnoteProperties = metnoteProperties;
     }
 
     @PostMapping("work-dir")
@@ -67,7 +67,7 @@ public class BackupController {
         log.info("Try to download backup file: [{}]", fileName);
 
         // Load file as resource
-        Resource backupResource = backupService.loadFileAsResource(haloProperties.getBackupDir(), fileName);
+        Resource backupResource = backupService.loadFileAsResource(metnoteProperties.getBackupDir(), fileName);
 
         String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
         // Try to determine file's content type
@@ -124,7 +124,7 @@ public class BackupController {
         log.info("Try to download exported data file: [{}]", fileName);
 
         // Load exported data as resource
-        Resource exportDataResource = backupService.loadFileAsResource(haloProperties.getDataExportDir(), fileName);
+        Resource exportDataResource = backupService.loadFileAsResource(metnoteProperties.getDataExportDir(), fileName);
 
         String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
         // Try to determine file's content type

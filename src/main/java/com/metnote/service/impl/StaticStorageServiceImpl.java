@@ -1,7 +1,7 @@
 package com.metnote.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.metnote.config.properties.HaloProperties;
+import com.metnote.config.properties.MetnoteProperties;
 import com.metnote.event.StaticStorageChangedEvent;
 import com.metnote.exception.FileOperationException;
 import com.metnote.exception.ServiceException;
@@ -44,9 +44,9 @@ public class StaticStorageServiceImpl implements StaticStorageService, Applicati
 
     private final ApplicationEventPublisher eventPublisher;
 
-    public StaticStorageServiceImpl(HaloProperties haloProperties,
+    public StaticStorageServiceImpl(MetnoteProperties metnoteProperties,
                                     ApplicationEventPublisher eventPublisher) throws IOException {
-        staticDir = Paths.get(haloProperties.getWorkDir(), STATIC_FOLDER);
+        staticDir = Paths.get(metnoteProperties.getWorkDir(), STATIC_FOLDER);
         this.eventPublisher = eventPublisher;
         FileUtils.createIfAbsent(staticDir);
     }

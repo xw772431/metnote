@@ -18,8 +18,8 @@ import java.util.ArrayList;
  * @date 2019-03-15
  */
 @Data
-@ConfigurationProperties("halo")
-public class HaloProperties {
+@ConfigurationProperties("metnote")
+public class MetnoteProperties {
 
     /**
      * Doc api disabled. (Default is true)
